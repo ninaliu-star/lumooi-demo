@@ -553,6 +553,15 @@ def _resume_html(resume):
             if isinstance(detail_values, str):
                 detail_values = [detail_values]
             details = "".join(f"<p>{_safe(d)}</p>" for d in detail_values if d)
+            privacy_notes = item.get("privacy_notes") or []
+            if isinstance(privacy_notes, str):
+                privacy_notes = [privacy_notes]
+            privacy_html = "".join(
+                '<div class="resume-private-field" contenteditable="false">'
+                '<span class="resume-private-placeholder" aria-hidden="true">PRIVATE INFORMATION HIDDEN</span>'
+                f'<strong>🔒 {_safe(note)}</strong></div>'
+                for note in privacy_notes if note
+            )
             link_url = str(item.get("link") or "").strip()
             link_html = ""
             if re.match(r"^https?://", link_url, flags=re.IGNORECASE):
@@ -573,7 +582,7 @@ def _resume_html(resume):
                 )
             rows.append(
                 f'<div class="entry"><div class="row"><strong>{_safe(title)}</strong>'
-                f'<span class="right">{_safe(row_right, "")}</span></div>{subrow}{details}{link_html}'
+                f'<span class="right">{_safe(row_right, "")}</span></div>{subrow}{privacy_html}{details}{link_html}'
                 f'<ul>{bullets}</ul></div>'
             )
         return "".join(rows) or '<p style="color:#999">该模块暂未录入</p>'
@@ -582,10 +591,30 @@ def _resume_html(resume):
         profile = resume.get("profile", {})
         sections = []
         for section in resume.get("sections", []):
-            sections.append(
-                f'<h2>{_safe(section.get("title"), "未命名模块")}</h2>'
-                f'{items_html(section.get("entries", []), "title")}'
-            )
+            if section.get("id") == "education":
+                section_html = (
+                    '<section class="resume-section locked-section education-private" '
+                    'data-section-id="education" contenteditable="false" '
+                    'aria-label="教育经历已做隐私处理">'
+                    f'<h2>{_safe(section.get("title"), "教育经历")}</h2>'
+                    '<div class="education-privacy-mask">'
+                    '<div class="education-placeholder" aria-hidden="true">'
+                    '<div><strong>Education Institution</strong><span>20XX–20XX</span></div>'
+                    '<p>Degree · Program · Academic information</p>'
+                    '<div><strong>Education Institution</strong><span>20XX–20XX</span></div>'
+                    '<p>Degree · Program · Academic information</p>'
+                    '</div>'
+                    '<div class="education-privacy-notice">'
+                    '<strong>教育经历已做隐私处理</strong>'
+                    '<span>因本页面为公开展示版，学历详情暂不呈现；完整信息仅在正式招聘沟通中提供。</span>'
+                    '</div></div></section>'
+                )
+            else:
+                section_html = (
+                    f'<h2>{_safe(section.get("title"), "未命名模块")}</h2>'
+                    f'{items_html(section.get("entries", []), "title")}'
+                )
+            sections.append(section_html)
         return (
             f'<h1>{_safe(profile.get("name"), "姓名")}</h1>'
             f'<p class="contact">{_safe(profile.get("meta"), "")}</p>'

@@ -1,5 +1,9 @@
 import html
+import hashlib
+import hmac
 import json
+import os
+import uuid
 from datetime import date, datetime
 
 import streamlit as st
@@ -7,6 +11,7 @@ import streamlit.components.v1 as components
 
 from demo_database import (
     add_job,
+    configure_session_database,
     get_all_experiences,
     get_all_jobs,
     get_asset_by_code,
@@ -41,6 +46,9 @@ STATUS_OPTIONS = [
     "放弃",
 ]
 
+DEMO_ACCESS_COOKIE = "lumooi_demo_access"
+DEMO_ACCESS_COOKIE_MAX_AGE = 60 * 60 * 24
+
 
 st.set_page_config(
     page_title="lumooi",
@@ -48,6 +56,175 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+
+def _demo_access_token(password):
+    return hmac.new(
+        password.encode("utf-8"),
+        b"lumooi-demo-browser-access-v1",
+        hashlib.sha256,
+    ).hexdigest()
+
+
+def _install_demo_access_cookie(token):
+    """Keep access across full-page navigation without exposing the password."""
+    token_json = json.dumps(token)
+    components.html(
+        f"""
+        <script>
+        (() => {{
+            let owner;
+            try {{ owner = window.parent; }} catch (_) {{ return; }}
+            const secure = owner.location.protocol === "https:" ? "; Secure" : "";
+            owner.document.cookie = "{DEMO_ACCESS_COOKIE}=" + {token_json}
+                + "; Max-Age={DEMO_ACCESS_COOKIE_MAX_AGE}; Path=/; SameSite=Lax" + secure;
+        }})();
+        </script>
+        """,
+        height=0,
+        scrolling=False,
+    )
+
+
+def require_portfolio_password():
+    """Protect the interactive lumooi demo while keeping the product page public."""
+    try:
+        configured_password = str(st.secrets.get("PORTFOLIO_PASSWORD", "")).strip()
+    except Exception:
+        configured_password = ""
+    configured_password = configured_password or os.environ.get("PORTFOLIO_PASSWORD", "").strip()
+
+    if not configured_password:
+        st.error("该 lumooi Demo 尚未配置访问密码，当前已默认关闭访问。")
+        st.caption("开发者请在 Streamlit Secrets 中配置 PORTFOLIO_PASSWORD。")
+        st.stop()
+
+    expected_access_token = _demo_access_token(configured_password)
+    try:
+        stored_access_token = str(st.context.cookies.get(DEMO_ACCESS_COOKIE, ""))
+    except Exception:
+        stored_access_token = ""
+
+    access_is_valid = bool(stored_access_token) and hmac.compare_digest(
+        stored_access_token,
+        expected_access_token,
+    )
+    if st.session_state.get("portfolio_access_granted") or access_is_valid:
+        st.session_state["portfolio_access_granted"] = True
+        _install_demo_access_cookie(expected_access_token)
+        return
+
+    st.markdown(
+        r"""
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=VT323&display=swap');
+        :root{--retro-light:#F0EDE0;--retro-main:#E0DCCF;--retro-dark:#C4C0B3;--retro-shadow:#A09C8F;--retro-black:#111;--retro-green:#33ff00}
+        html body:has(.portfolio-retro-screen) [data-testid="stHeader"],html body:has(.portfolio-retro-screen) section[data-testid="stSidebar"]{display:none!important}
+        html body:has(.portfolio-retro-screen),html body:has(.portfolio-retro-screen) .stApp,html body:has(.portfolio-retro-screen) [data-testid="stAppViewContainer"],html body:has(.portfolio-retro-screen) [data-testid="stMain"]{background:transparent!important}
+        html body:has(.portfolio-retro-screen) [data-testid="stMain"]{margin-left:0!important}
+        html body:has(.portfolio-retro-screen) .block-container{width:100%!important;max-width:none!important;padding:0!important}
+        .portfolio-retro-screen{position:fixed;inset:0;z-index:0;overflow:hidden;background:#0a0a0a;transition:background-color 2s ease;font-family:'EB Garamond',Georgia,serif}
+        .portfolio-retro-screen.boot-complete{background:#f4f1e6}
+        .retro-product-col{position:absolute;left:50%;top:42%;width:440px;height:620px;display:flex;align-items:center;justify-content:center;perspective:2000px;transform:translate(-50%,-50%) scale(.76)}
+        .retro-scene{position:relative;transform-style:preserve-3d;transform:rotateY(-10deg) rotateX(2deg)}
+        .retro-computer{position:relative;width:360px;height:440px;transform-style:preserve-3d}
+        .retro-face{position:absolute;background:var(--retro-main);border:1px solid rgba(0,0,0,.1)}
+        .retro-front{width:360px;height:440px;transform:translateZ(100px);background:linear-gradient(135deg,var(--retro-light),var(--retro-main));display:flex;flex-direction:column;align-items:center;padding-top:40px}
+        .retro-top{width:360px;height:200px;transform:rotateX(90deg) translateZ(100px);background:var(--retro-light)}
+        .retro-bottom{width:360px;height:200px;transform:rotateX(-90deg) translateZ(340px);background:var(--retro-shadow);box-shadow:0 50px 100px rgba(0,0,0,.8)}
+        .retro-left{width:200px;height:440px;transform:rotateY(-90deg) translateZ(100px);background:var(--retro-main)}
+        .retro-right{width:200px;height:440px;transform:rotateY(90deg) translateZ(260px);background:var(--retro-dark)}
+        .retro-screen-inset{width:280px;height:220px;background:#222;border-radius:16px;box-shadow:inset 2px 2px 10px rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;position:relative}
+        .retro-crt{width:260px;height:200px;background:var(--retro-black);border-radius:40%/10%;position:relative;overflow:hidden;box-shadow:inset 0 0 40px #000;animation:retro-flicker .15s infinite}
+        .retro-crt::after{content:"";position:absolute;inset:0;z-index:10;pointer-events:none;background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.25) 50%),linear-gradient(90deg,rgba(255,0,0,.06),rgba(0,255,0,.02),rgba(0,0,255,.06));background-size:100% 2px,3px 100%}
+        .retro-boot{padding:20px;color:var(--retro-green);font-family:'VT323','Courier New',monospace;font-size:11px;line-height:1.2;text-shadow:0 0 5px var(--retro-green);height:100%;overflow:hidden}
+        .retro-boot-head{border-bottom:1px solid rgba(51,255,0,.6);padding-bottom:5px;margin-bottom:7px}.retro-demo-message{padding:3px 0 6px;border-bottom:1px solid rgba(51,255,0,.28);font-size:10px;line-height:1.35}.retro-demo-message strong{display:block;font-size:18px;letter-spacing:.08em}.retro-log{height:54px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}.retro-line{margin-bottom:2px;white-space:nowrap}
+        .retro-progress{margin-top:6px}.retro-progress-label{margin-bottom:4px;font-size:10px;display:flex;justify-content:space-between}.retro-progress-outer{width:100%;height:10px;border:1px solid var(--retro-green);padding:1px}.retro-progress-inner{height:100%;width:0;background:var(--retro-green);transition:width .1s linear}
+        .retro-logo{position:absolute;bottom:30px;left:30px;width:20px;height:26px;border-radius:50%/60% 60% 40% 40%;background:linear-gradient(180deg,#63B548 0 16.6%,#F6C829 16.6% 33.3%,#E57D25 33.3% 50%,#D83335 50% 66.6%,#9C4595 66.6% 83.3%,#468CCF 83.3%);opacity:.5}
+        .retro-slot{width:140px;height:12px;background:#111;border-radius:6px;margin-left:100px}.retro-grill{position:absolute;bottom:25px;right:25px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;width:30px;height:20px}.retro-vent{background:#222;border-radius:1px}
+        .retro-keyboard{display:none}.retro-status{position:absolute;left:50%;bottom:5%;width:440px;transform:translateX(-50%);text-align:center;font-family:'VT323',monospace;color:rgba(51,255,0,.48);font-size:16px;letter-spacing:2px;text-transform:uppercase;animation:retro-pulse 1.5s infinite}
+        @keyframes retro-pulse{50%{opacity:.45}}@keyframes retro-flicker{0%{opacity:.97}10%{opacity:.9}15%{opacity:1}20%{opacity:.98}100%{opacity:1}}
+
+        .portfolio-gate-card{display:none!important}
+        .portfolio-gate-card::before{content:"ACCESS NOTE / 01";display:block;margin-bottom:20px;padding-bottom:9px;border-bottom:1px solid rgba(0,0,0,.26);font-family:'VT323','Courier New',monospace;font-size:18px;letter-spacing:.09em}
+        .portfolio-gate-card .gate-kicker{font-family:'VT323','Courier New',monospace;font-size:17px;letter-spacing:.16em;text-transform:uppercase;color:#333}
+        .portfolio-gate-card h1{margin:8px 0 12px!important;color:#0f0f0f;font-family:'EB Garamond',Georgia,serif!important;font-size:clamp(34px,3.4vw,52px)!important;line-height:1!important;font-weight:600!important;letter-spacing:-.035em!important}
+        .portfolio-gate-card p{margin:0;color:#292826;font-size:17px;line-height:1.55}
+        html body:has(.portfolio-retro-screen) [data-testid="stForm"]{position:fixed!important;z-index:4!important;left:50%!important;top:68%!important;width:min(410px,78vw)!important;height:178px!important;min-height:0!important;margin:0!important;padding:18px 22px 22px!important;border:1px solid rgba(0,0,0,.28)!important;border-radius:5px!important;background:linear-gradient(180deg,var(--retro-light),var(--retro-main))!important;box-shadow:0 13px 0 var(--retro-dark),0 28px 55px rgba(0,0,0,.30)!important;overflow:visible!important;transform:translateX(-50%) perspective(900px) rotateX(5deg)!important;transform-origin:center top!important}
+        html body:has(.portfolio-retro-screen) [data-testid="stForm"]>div[data-testid="stVerticalBlock"]{height:auto!important;min-height:0!important}
+        html body:has(.portfolio-retro-screen) [data-testid="stForm"]::before{content:"LUMOOI ACCESS KEYBOARD";display:block;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid rgba(0,0,0,.25);font-family:'VT323','Courier New',monospace;font-size:17px;letter-spacing:.08em;color:#111}
+        html body:has(.portfolio-retro-screen) [data-testid="stTextInput"] label p{font-family:'VT323','Courier New',monospace!important;font-size:18px!important;color:#111!important}
+        html body:has(.portfolio-retro-screen) [data-testid="stTextInput"] input{background:#111!important;color:#33ff00!important;border:1px solid #111!important;border-radius:0!important;font-family:'VT323','Courier New',monospace!important;font-size:18px!important;caret-color:#33ff00!important}
+        html body:has(.portfolio-retro-screen) [data-testid="stTextInput"] input::placeholder{color:rgba(51,255,0,.52)!important}
+        html body:has(.portfolio-retro-screen) button[kind="primaryFormSubmit"],html body:has(.portfolio-retro-screen) button[data-testid="stBaseButton-primaryFormSubmit"]{border:1px solid #111!important;border-radius:0!important;background:#111!important;color:#33ff00!important;font-family:'VT323','Courier New',monospace!important;font-size:20px!important;letter-spacing:.08em!important;box-shadow:none!important}
+        html body:has(.portfolio-retro-screen) button[kind="primaryFormSubmit"]:hover,html body:has(.portfolio-retro-screen) button[data-testid="stBaseButton-primaryFormSubmit"]:hover{background:#33ff00!important;color:#111!important}
+        html body:has(.portfolio-retro-screen) [data-testid="stAlert"]{position:fixed!important;z-index:6!important;left:50%!important;top:92%!important;width:min(410px,78vw)!important;transform:translateX(-50%)!important}
+        @media(max-width:720px){.retro-product-col{top:37%;transform:translate(-50%,-50%) scale(.58)}.retro-status{display:none}html body:has(.portfolio-retro-screen) [data-testid="stForm"]{top:66%!important;width:min(390px,88vw)!important;height:174px!important;padding:16px 18px!important}html body:has(.portfolio-retro-screen) [data-testid="stAlert"]{top:91%!important;width:min(390px,88vw)!important}}
+        @media(prefers-reduced-motion:reduce){.retro-crt,.retro-status{animation:none!important}}
+        </style>
+        <div class="portfolio-retro-screen" aria-hidden="true">
+          <div class="retro-product-col"><div class="retro-scene"><div class="retro-computer">
+            <div class="retro-face retro-front"><div class="retro-screen-inset"><div class="retro-crt"><div class="retro-boot"><div class="retro-boot-head">LUMOOI BIOS v1.0.4<br>(C) 2026 CAREER ASSET SYSTEM</div><div class="retro-demo-message"><strong>LUMOOI DEMO</strong><span>临时密码访问 · 公开内容已脱敏</span><br><span>请在下方键盘输入访问密码</span></div><div class="retro-log"></div><div class="retro-progress"><div class="retro-progress-label"><span>ACCESS SYSTEM...</span><span class="retro-percent">0%</span></div><div class="retro-progress-outer"><div class="retro-progress-inner"></div></div></div></div></div></div><div class="retro-logo"></div><div class="retro-slot"></div><div class="retro-grill"><i class="retro-vent"></i><i class="retro-vent"></i><i class="retro-vent"></i><i class="retro-vent"></i></div></div>
+            <div class="retro-face retro-left"></div><div class="retro-face retro-right"></div><div class="retro-face retro-top"></div><div class="retro-face retro-bottom"></div>
+            <div class="retro-keyboard"><div class="retro-kb-base"><div class="retro-keys"><i class="retro-key"></i><i class="retro-key"></i><i class="retro-key"></i><i class="retro-key"></i><i class="retro-key"></i><i class="retro-key"></i><i class="retro-key"></i><i class="retro-key"></i><i class="retro-key"></i><i class="retro-key"></i><i class="retro-key"></i><i class="retro-key"></i><i class="retro-key space"></i></div></div></div>
+          </div></div></div><div class="retro-status">System Boot in Progress...</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    components.html(
+        r"""
+        <script>
+        (()=>{let owner,doc;try{owner=window.parent;doc=owner.document}catch(_){return}
+        if(typeof owner.__lumooiRetroCleanup==='function')owner.__lumooiRetroCleanup();
+        const screen=doc.querySelector('.portfolio-retro-screen');if(!screen)return;
+        const log=screen.querySelector('.retro-log'),bar=screen.querySelector('.retro-progress-inner'),percent=screen.querySelector('.retro-percent'),status=screen.querySelector('.retro-status');
+        const lines=['CAREER ASSET ENGINE: READY','PRIVACY MASKS: ACTIVE','ACCESS GATE: SECURED','WAITING FOR PASSWORD...'];
+        let lineIndex=0,progress=0,stopped=false,timers=[];
+        const later=(fn,delay)=>{const id=owner.setTimeout(fn,delay);timers.push(id)};
+        const addLine=()=>{if(stopped||lineIndex>=lines.length)return;const row=doc.createElement('div');row.className='retro-line';row.innerHTML='<span style="opacity:.5">[OK]</span> '+lines[lineIndex++];log.appendChild(row);while(log.children.length>7)log.firstElementChild.remove();later(addLine,260+Math.random()*430)};
+        const tick=()=>{if(stopped)return;if(progress<100){progress=Math.min(100,progress+Math.random()*3.6);bar.style.width=progress+'%';percent.textContent=Math.floor(progress)+'%';later(tick,55+Math.random()*95)}else{status.textContent='SYSTEM READY · ENTER ACCESS PASSWORD';screen.classList.add('boot-complete')}};
+        addLine();tick();
+        owner.__lumooiRetroCleanup=()=>{stopped=true;timers.forEach(id=>owner.clearTimeout(id));delete owner.__lumooiRetroCleanup};
+        })();
+        </script>
+        """,
+        height=0,
+        scrolling=False,
+    )
+
+    st.markdown(
+        """
+        <div class="portfolio-gate-card">
+          <div class="gate-kicker">LUMOOI DEMO</div>
+          <h1>lumooi Demo</h1>
+          <p>
+            这是 lumooi 的交互式产品演示。为了避免在招聘沟通范围之外呈现过多个人信息，
+            Demo 中的部分内容已进行脱敏、虚拟化或打码处理，不影响产品功能与设计能力的展示。
+          </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    with st.form("portfolio_access_form", clear_on_submit=True):
+        entered_password = st.text_input("访问密码", type="password", placeholder="请输入开发者提供的临时密码")
+        submitted = st.form_submit_button("进入 Demo", type="primary", use_container_width=True)
+    if submitted:
+        if hmac.compare_digest(entered_password, configured_password):
+            st.session_state["portfolio_access_granted"] = True
+            st.rerun()
+        st.error("密码不正确，请向开发者确认临时密码。")
+    st.stop()
+
+
+requested_entry_page = str(st.query_params.get("page", "产品首页"))
+if requested_entry_page != "产品首页":
+    require_portfolio_password()
+
+if "showcase_session_id" not in st.session_state:
+    st.session_state["showcase_session_id"] = uuid.uuid4().hex
+configure_session_database(st.session_state["showcase_session_id"])
 
 
 # =========================================================
@@ -4761,11 +4938,11 @@ def render_product_landing():
                 border-radius: 44% 56% 61% 39% / 48% 43% 57% 52%;
                 background:
                     radial-gradient(circle at 32% 28%, rgba(255,255,255,.96) 0 18%, transparent 42%),
-                    radial-gradient(circle at 68% 70%, rgba(220,238,250,.72) 0 16%, transparent 55%),
-                    linear-gradient(145deg, rgba(255,255,255,.92), rgba(220,238,250,.52));
+                    radial-gradient(circle at 68% 70%, rgba(250,216,230,.72) 0 16%, transparent 55%),
+                    linear-gradient(145deg, rgba(255,255,255,.92), rgba(250,216,230,.52));
                 box-shadow:
                     inset 16px 18px 32px rgba(255,255,255,.82),
-                    inset -18px -20px 38px rgba(220,238,250,.36),
+                    inset -18px -20px 38px rgba(250,216,230,.36),
                     0 26px 70px rgba(96,150,185,.10);
                 filter: blur(1.5px);
                 opacity: .86;
@@ -4810,7 +4987,7 @@ def render_product_landing():
                 pointer-events: none;
                 opacity: 0;
                 will-change: translate, opacity, transform;
-                background: radial-gradient(circle, rgba(220,238,250,.48) 0, rgba(255,255,255,.58) 34%, transparent 70%);
+                background: radial-gradient(circle, rgba(250,216,230,.48) 0, rgba(255,255,255,.58) 34%, transparent 70%);
                 filter: blur(13px);
                 transform: translate(-50%, -50%) scale(.78);
                 transition: opacity .45s ease;
@@ -4837,14 +5014,14 @@ def render_product_landing():
                 to { transform: rotate(13deg) scale(1.13); }
             }
 
-            /* 白色 + 浅青色丝绸流体背景。保持较慢的向下流动，并由下方脚本
+            /* 白色 + 浅粉色丝绸流体背景。保持较慢的向下流动，并由下方脚本
                注入轻微的鼠标位移，效果对应 Ferrofluid 参数。 */
             .cp-fluid {
                 inset: 0;
                 overflow: hidden;
                 background:
                     radial-gradient(ellipse at 18% 4%, rgba(255,255,255,1) 0 22%, transparent 55%),
-                    radial-gradient(ellipse at 78% 82%, rgba(191,238,243,.58) 0 12%, transparent 48%),
+                    radial-gradient(ellipse at 78% 82%, rgba(244,185,208,.58) 0 12%, transparent 48%),
                     linear-gradient(180deg, #ffffff 0%, #fffdfd 48%, #f4fcfd 100%);
                 filter: none;
                 transform: none;
@@ -4866,7 +5043,7 @@ def render_product_landing():
                     repeating-radial-gradient(ellipse at 48% 46%,
                         rgba(255,255,255,.96) 0 4%,
                         rgba(255,255,255,.22) 8%,
-                        rgba(191,238,243,.30) 13%,
+                        rgba(244,185,208,.30) 13%,
                         rgba(255,255,255,.78) 19%,
                         transparent 27%);
                 box-shadow: none;
@@ -4879,7 +5056,7 @@ def render_product_landing():
                     repeating-radial-gradient(ellipse at 56% 40%,
                         transparent 0 7%,
                         rgba(255,255,255,.86) 12%,
-                        rgba(191,238,243,.24) 17%,
+                        rgba(244,185,208,.24) 17%,
                         rgba(255,255,255,.52) 23%,
                         transparent 31%);
                 box-shadow: none;
@@ -4895,14 +5072,14 @@ def render_product_landing():
                     radial-gradient(ellipse at 34% 24%, rgba(255,255,255,.98) 0 13%, transparent 38%),
                     linear-gradient(128deg,
                         rgba(255,255,255,.86) 3%,
-                        rgba(191,238,243,.16) 31%,
+                        rgba(244,185,208,.16) 31%,
                         rgba(255,255,255,.96) 51%,
-                        rgba(191,238,243,.42) 72%,
+                        rgba(244,185,208,.42) 72%,
                         rgba(255,255,255,.56) 100%);
                 box-shadow:
                     inset 34px 10px 55px rgba(255,255,255,.90),
-                    inset -30px -18px 60px rgba(191,238,243,.30),
-                    0 30px 90px rgba(123,197,207,.10);
+                    inset -30px -18px 60px rgba(244,185,208,.30),
+                    0 30px 90px rgba(198,105,143,.10);
                 filter: blur(9px);
                 opacity: .74;
                 mix-blend-mode: multiply;
@@ -4935,7 +5112,7 @@ def render_product_landing():
                 width: min(35vw, 440px);
                 opacity: 0;
                 background: radial-gradient(circle,
-                    rgba(191,238,243,.36) 0,
+                    rgba(244,185,208,.36) 0,
                     rgba(255,255,255,.44) 35%,
                     transparent 72%);
                 filter: blur(18px);
@@ -5209,9 +5386,9 @@ def render_product_landing():
             <section class="cp-hero">
                 <div class="cp-eyebrow">AI CAREER WORKSPACE</div>
                 <h1><span>Shape what you’ve done</span><span>into what’s next.</span></h1>
-                <p class="cp-hero-copy">刘泽菲公开作品集 Demo：用10段真实经历与56项脱敏职业资产，演示系统如何长期沉淀经历，并为不同岗位筛选最匹配的证据与STAR故事。</p>
+                <p class="cp-hero-copy">lumooi 产品 Demo：用10段真实经历与56项脱敏职业资产，演示系统如何长期沉淀经历，并为不同岗位筛选最匹配的证据与STAR故事。</p>
                 <div class="cp-hero-actions">
-                    <a class="primary" href="?page=工作台" target="_self">体验 Nina 的职业资产系统</a>
+                    <a class="primary" href="?page=工作台" target="_self">进入 lumooi Demo</a>
                     <a href="#how-it-works">查看 5 步使用指南 ↓</a>
                 </div>
             </section>
@@ -5376,11 +5553,11 @@ def render_product_landing():
 
                                 vec3 pink = vec3(1.0, 0.945, 0.968);
                                 vec3 white = vec3(1.0);
-                                vec3 cyan = vec3(0.847, 0.953, 0.965);
+                                vec3 blush = vec3(0.976, 0.760, 0.847);
                                 vec3 color = pink;
                                 color = mix(color, white, surface * 0.055);
                                 color -= vec3(0.035, 0.026, 0.030) * shadow * 0.62;
-                                color = mix(color, cyan, coolRim * 0.32);
+                                color = mix(color, blush, coolRim * 0.32);
                                 color += white * (litRim * 0.92 + shimmer * 0.24 + softGlow * litRim * 0.24);
                                 color = clamp(color, 0.0, 1.0);
 
@@ -6092,7 +6269,7 @@ def render_lumooi_home(all_jobs, counts):
             <header class="lum-topbar">
                 <div class="lum-greeting">
                     <h1>Nina's Career Archive.</h1>
-                    <span class="lum-demo-label">PUBLIC PORTFOLIO DEMO · 真实经历脱敏＋假设岗位</span>
+                    <span class="lum-demo-label">LUMOOI PRODUCT DEMO · 真实经历脱敏＋假设岗位</span>
                 </div>
                 <div class="lum-top-actions">
                     <a class="lum-circle-button" href="?page=职位申请" target="_self" aria-label="申请追踪">♧</a>
@@ -6446,6 +6623,46 @@ if page_name == "工作台":
         """,
         unsafe_allow_html=True,
     )
+
+st.sidebar.markdown(
+    """
+    <div class="lum-demo-privacy-note"
+         role="note"
+         aria-label="lumooi Demo。因网站公开发布，部分个人、企业与项目信息已脱敏、虚拟化或打码。">
+        <span aria-hidden="true">🔒</span>
+        <strong>DEMO</strong>
+        <small>脱敏版</small>
+    </div>
+    <style>
+        .lum-demo-privacy-note{
+            position:fixed!important;left:14px!important;bottom:16px!important;
+            width:52px!important;height:62px!important;z-index:1000002!important;
+            box-sizing:border-box!important;padding:8px 4px!important;
+            border:1px solid rgba(40,40,40,.12)!important;border-radius:15px!important;
+            background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
+            box-shadow:0 8px 24px rgba(30,30,30,.08);pointer-events:none;
+            display:flex!important;flex-direction:column!important;
+            align-items:center!important;justify-content:center!important;gap:2px!important;
+            overflow:hidden!important;white-space:nowrap!important;
+        }
+        .lum-demo-privacy-note span{
+            display:block!important;margin:0!important;font-size:13px!important;
+            line-height:15px!important;letter-spacing:0!important;
+        }
+        .lum-demo-privacy-note strong{
+            display:block!important;margin:0!important;color:#383838!important;
+            font-size:8px!important;line-height:10px!important;font-weight:850!important;
+            letter-spacing:.08em!important;white-space:nowrap!important;
+        }
+        .lum-demo-privacy-note small{
+            display:block!important;margin:0!important;color:#777!important;
+            font-size:8px!important;line-height:11px!important;font-weight:650!important;
+            letter-spacing:0!important;white-space:nowrap!important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 if page_name not in {"产品首页", "职业资产库", "工作台", "职位申请", "简历定制", "面试准备"}:
     st.title("lumooi.")

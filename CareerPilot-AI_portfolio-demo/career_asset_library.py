@@ -29,9 +29,10 @@ def _compact_name(experience):
     """Return a short display name for an experience cover card."""
     code = (experience.get("experience_code") or "").upper()
     aliases = {
-        "CP": "CareerPilot", "CAT": "HR Tech 咨询", "WD": "水滴筹",
-        "XN": "HR 研究", "CB": "无人配送项目", "EY": "EY",
-        "NDC": "国家级大创", "MZY": "人口经济学", "SOHU": "Sohu", "FESCO": "FESCO",
+        "CP": "lumooi", "CAT": "HR AI 初创团队", "TECH": "互联网科技公司",
+        "XN": "🔒 出版研究项目", "CB": "🔒 竞赛项目", "ACCT": "会计师事务所",
+        "NDC": "🔒 创新研究项目", "MZY": "🔒 科研项目",
+        "MEDIA": "新媒体互联网公司", "HRS": "人力资源服务公司",
     }
     if code in aliases:
         return aliases[code]
@@ -48,7 +49,7 @@ def _virtual_logo(experience):
     code = (experience.get("experience_code") or "").upper()
     name = _compact_name(experience).lower()
 
-    logos = {"CP":"◉", "CAT":"◇", "WD":"♡", "XN":"▤", "CB":"⌁", "EY":"E", "NDC":"◎", "MZY":"∿", "SOHU":"S", "FESCO":"F"}
+    logos = {"CP":"◉", "CAT":"◇", "TECH":"T", "XN":"▤", "CB":"⌁", "ACCT":"A", "NDC":"◎", "MZY":"∿", "MEDIA":"M", "HRS":"H"}
     if code in logos:
         return logos[code]
     return "◌"
@@ -59,8 +60,8 @@ def _experience_palette(experience):
     code = (experience.get("experience_code") or "").upper()
     palettes = {
         "CP":{"bg":"#E8E2FF","accent":"#7052B8"}, "CAT":{"bg":"#FFE6D2","accent":"#C76F43"},
-        "WD":{"bg":"#DDF3E7","accent":"#3C946C"}, "EY":{"bg":"#FFF0CF","accent":"#A87919"},
-        "SOHU":{"bg":"#DCEBFF","accent":"#3976C8"}, "FESCO":{"bg":"#E9E1D7","accent":"#786B5A"},
+        "TECH":{"bg":"#DDF3E7","accent":"#3C946C"}, "ACCT":{"bg":"#FFF0CF","accent":"#A87919"},
+        "MEDIA":{"bg":"#DCEBFF","accent":"#3976C8"}, "HRS":{"bg":"#E9E1D7","accent":"#786B5A"},
         "CB":{"bg":"#FFE4E7","accent":"#C94E65"}, "NDC":{"bg":"#EFE4FF","accent":"#8254F5"},
         "XN":{"bg":"#D9F0F9","accent":"#2E829F"}, "MZY":{"bg":"#ECE8E1","accent":"#776B5D"},
     }
@@ -71,7 +72,7 @@ def _experience_collection(experience):
     """Map a verified Experience Bank record into one of four UI collections."""
     code = (experience.get("experience_code") or "").strip().upper()
     code_map = {
-        "WD":"internship", "EY":"internship", "SOHU":"internship", "FESCO":"internship",
+        "TECH":"internship", "ACCT":"internship", "MEDIA":"internship", "HRS":"internship",
         "CP":"project", "CAT":"project", "CB":"competition", "NDC":"competition",
         "XN":"research", "MZY":"research",
     }
@@ -776,9 +777,9 @@ def render_experience_bank_canvas(experiences):
         place-items: center;
         padding: 28px;
         transform: translate(-50%, -50%) scale(1);
-        border: 0;
+        border: 2px dashed rgba(48,48,48,.10);
         border-radius: 50%;
-        background: transparent;
+        background: rgba(250,250,249,.32);
         box-shadow: none;
         transition:
           transform .22s cubic-bezier(.2,.8,.2,1),
@@ -789,7 +790,12 @@ def render_experience_bank_canvas(experiences):
       }
 
       .drop-zone::before {
-        content: none;
+        content: "";
+        position: absolute;
+        inset: 9px;
+        border: 1px solid rgba(255,255,255,.72);
+        border-radius: 50%;
+        pointer-events: none;
       }
 
       .drop-zone.active {
@@ -809,7 +815,7 @@ def render_experience_bank_canvas(experiences):
       }
 
       .drop-copy {
-        display: none;
+        display: block;
         position: relative;
         z-index: 2;
         color: rgba(41,41,41,.23);
@@ -1006,9 +1012,9 @@ def render_experience_bank_canvas(experiences):
       .cover-logo {
         position: absolute;
         left: clamp(21px, 1.65vw, 25px);
-        bottom: clamp(83px, 9.8vh, 98px);
+        bottom: clamp(112px, 13.5vh, 132px);
         display: block;
-        font-size: clamp(37px, 3.25vw, 48px);
+        font-size: clamp(31px, 2.55vw, 38px);
         line-height: 1;
         filter: drop-shadow(0 5px 8px rgba(35,35,35,.08));
       }
@@ -1017,7 +1023,7 @@ def render_experience_bank_canvas(experiences):
         position: absolute;
         left: clamp(21px, 1.65vw, 25px);
         right: 14px;
-        bottom: clamp(51px, 6vh, 61px);
+        bottom: clamp(54px, 6.4vh, 66px);
         margin: 0;
         font-family:
           "Gaegu",
@@ -1026,8 +1032,8 @@ def render_experience_bank_canvas(experiences):
           "Arial Rounded MT Bold",
           "Trebuchet MS",
           sans-serif;
-        font-size: clamp(28px, 2.45vw, 36px);
-        line-height: 1.05;
+        font-size: clamp(20px, 1.75vw, 25px);
+        line-height: 1.10;
         font-weight: 700;
         overflow-wrap: anywhere;
       }
@@ -2366,7 +2372,7 @@ def render_experience_bank_canvas(experiences):
           label: "Work Experience",
           title: "实习经历",
           kicker: "TALENT & PEOPLE OPERATIONS",
-          description: "水滴筹 · EY · Sohu · FESCO",
+          description: "互联网科技 · 会计师事务所 · 新媒体 · 人力资源服务",
           bg: "#DDF3E7",
           accent: "#12B77A",
           chart: "M4 72 C48 48, 96 56, 142 39 S236 17, 306 22"
@@ -2376,7 +2382,7 @@ def render_experience_bank_canvas(experiences):
           label: "Product & Consulting",
           title: "产品与咨询",
           kicker: "PRODUCT & BUSINESS",
-          description: "CareerPilot · HR Tech 咨询项目",
+          description: "lumooi · HR AI 初创团队咨询项目",
           bg: "#FFE6D2",
           accent: "#FF8F65",
           chart: "M4 76 C58 72, 94 45, 142 42 S220 12, 306 17"
@@ -2386,7 +2392,7 @@ def render_experience_bank_canvas(experiences):
           label: "Competition & Innovation",
           title: "竞赛与创新",
           kicker: "RESEARCH TO PRACTICE",
-          description: "无人配送创新项目 · 国家级大创",
+          description: "具体竞赛名称已隐藏 · 方法与成果可查看",
           bg: "#EFE4FF",
           accent: "#8254F5",
           chart: "M4 75 C62 74, 104 68, 143 54 S220 23, 306 18"
@@ -2396,7 +2402,7 @@ def render_experience_bank_canvas(experiences):
           label: "Research & Writing",
           title: "研究与写作",
           kicker: "RESEARCH & KNOWLEDGE",
-          description: "人力资源管理 · 人口经济学",
+          description: "具体出版物与科研项目名称已隐藏",
           bg: "#DCEBFF",
           accent: "#4E83E7",
           chart: "M4 72 C54 58, 98 64, 146 44 S231 18, 306 26"
@@ -2871,7 +2877,7 @@ def render_experience_bank_canvas(experiences):
       }
 
       const selectorCategoryLayouts = {
-        internship: { WD: { x: 18, y: 69, angle: 4 }, EY: { x: 39, y: 29, angle: -3 }, SOHU: { x: 63, y: 29, angle: 3 }, FESCO: { x: 82, y: 69, angle: -4 } },
+        internship: { TECH: { x: 18, y: 69, angle: 4 }, ACCT: { x: 39, y: 29, angle: -3 }, MEDIA: { x: 63, y: 29, angle: 3 }, HRS: { x: 82, y: 69, angle: -4 } },
         project: { CP: { x: 24, y: 68, angle: 3 }, CAT: { x: 76, y: 33, angle: -4 } },
         competition: { CB: { x: 24, y: 68, angle: 3 }, NDC: { x: 76, y: 33, angle: -4 } },
         research: { XN: { x: 24, y: 68, angle: 3 }, MZY: { x: 76, y: 33, angle: -4 } }
@@ -2886,7 +2892,7 @@ def render_experience_bank_canvas(experiences):
         { x: 50.0, y: 23.0, angle: -2 }
       ];
 
-      const selectorKickers = { CP: "CAREER PRODUCT", CAT: "HR TECH CONSULTING", WD: "RECRUITING OPERATIONS", EY: "CAMPUS RECRUITING", SOHU: "HRBP & TALENT", FESCO: "HR OPERATIONS", CB: "INNOVATION PROJECT", NDC: "SOCIAL RESEARCH", XN: "HR RESEARCH", MZY: "POPULATION ECONOMICS" };
+      const selectorKickers = { CP: "CAREER PRODUCT", CAT: "HR AI CONSULTING", TECH: "RECRUITING OPERATIONS", ACCT: "CAMPUS RECRUITING", MEDIA: "HRBP & TALENT", HRS: "HR OPERATIONS", CB: "PRIVATE COMPETITION", NDC: "PRIVATE RESEARCH", XN: "PRIVATE PUBLICATION", MZY: "PRIVATE RESEARCH" };
 
       let selectorDrag = null;
       let selectorOpening = false;
@@ -2905,10 +2911,10 @@ def render_experience_bank_canvas(experiences):
 
         if (/careerpilot/.test(identityText)) return "CP";
         if (/hr tech|咨询/.test(identityText)) return "CAT";
-        if (/水滴|waterdrop/.test(identityText)) return "WD";
-        if (/\bey\b|安永/.test(identityText)) return "EY";
-        if (/搜狐|sohu/.test(identityText)) return "SOHU";
-        if (/fesco/.test(identityText)) return "FESCO";
+        if (/互联网科技/.test(identityText)) return "TECH";
+        if (/会计师事务所/.test(identityText)) return "ACCT";
+        if (/新媒体互联网/.test(identityText)) return "MEDIA";
+        if (/人力资源服务/.test(identityText)) return "HRS";
         if (/无人配送/.test(identityText)) return "CB";
         if (/创新创业训练|国家级大创/.test(identityText)) return "NDC";
         if (/人力资源管理课题组/.test(identityText)) return "XN";
@@ -3136,7 +3142,7 @@ def render_experience_bank_canvas(experiences):
         const startDot = document.getElementById("project-link-start");
         const endDot = document.getElementById("project-link-end");
         const relationshipPairs = {
-          internship: ["FESCO", "SOHU"], project: ["CAT", "CP"],
+          internship: ["HRS", "MEDIA"], project: ["CAT", "CP"],
           competition: ["NDC", "CB"], research: ["MZY", "XN"]
         };
         const pair = relationshipPairs[state.collectionId] || [];
@@ -3184,7 +3190,7 @@ def render_experience_bank_canvas(experiences):
           const identityCode = selectorIdentityCode(item);
           const savedLayout = selectorCardPositions.get(`${state.collectionId}:${identityCode || index}`);
           const layout = savedLayout ? { ...baseLayout, ...savedLayout } : baseLayout;
-          const linkedCodes = { internship: ["FESCO", "SOHU"], project: ["CAT", "CP"], competition: ["NDC", "CB"], research: ["MZY", "XN"] }[state.collectionId] || [];
+          const linkedCodes = { internship: ["HRS", "MEDIA"], project: ["CAT", "CP"], competition: ["NDC", "CB"], research: ["MZY", "XN"] }[state.collectionId] || [];
           const linkedClass = linkedCodes.includes(identityCode) ? " linked-cover" : "";
           return `
             <button

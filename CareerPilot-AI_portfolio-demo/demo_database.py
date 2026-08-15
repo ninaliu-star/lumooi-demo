@@ -8,11 +8,21 @@ from __future__ import annotations
 
 import json
 import sqlite3
+import tempfile
 from pathlib import Path
 
 
 DATABASE_PATH = Path("data/portfolio_demo.db")
 PIPELINE_STAGES = ["投递简历", "笔试测评", "群面", "初试", "复试", "业务面", "HR面", "谈薪", "Offer"]
+
+
+def configure_session_database(session_token):
+    """Isolate every external viewer in a disposable demo database."""
+    global DATABASE_PATH
+    safe_token = "".join(character for character in str(session_token) if character.isalnum())[:64]
+    if not safe_token:
+        raise ValueError("A valid showcase session token is required.")
+    DATABASE_PATH = Path(tempfile.gettempdir()) / "lumooi_hr_sessions" / f"{safe_token}.db"
 
 EXPERIENCE_FIELDS = [
     "experience_code", "organization", "alternate_name", "experience_type", "role", "role_en",

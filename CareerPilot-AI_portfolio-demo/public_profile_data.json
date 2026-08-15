@@ -24,8 +24,8 @@
     },
     {
       "experience_code": "CAT",
-      "organization": "美国某 HR Tech 初创企业咨询项目",
-      "alternate_name": "美国某 HR Tech 初创企业咨询项目",
+      "organization": "HR AI 初创团队咨询项目",
+      "alternate_name": "HR AI 初创团队咨询项目",
       "experience_type": "咨询项目",
       "role": "学生咨询顾问",
       "role_en": "Student Consultant",
@@ -45,9 +45,9 @@
       "verified": 1
     },
     {
-      "experience_code": "WD",
-      "organization": "水滴科技集团｜水滴筹",
-      "alternate_name": "水滴科技集团｜水滴筹",
+      "experience_code": "TECH",
+      "organization": "互联网科技公司",
+      "alternate_name": "互联网科技公司",
       "experience_type": "实习经历",
       "role": "招聘与招聘运营实习生",
       "role_en": "Recruitment Intern",
@@ -68,8 +68,8 @@
     },
     {
       "experience_code": "XN",
-      "organization": "人力资源管理课题组",
-      "alternate_name": "人力资源管理课题组",
+      "organization": "研究与专业书稿协作项目",
+      "alternate_name": "🔒 具体出版项目名称已隐藏",
       "experience_type": "科研经历",
       "role": "学生研究助理",
       "role_en": "Student Research Assistant",
@@ -90,8 +90,8 @@
     },
     {
       "experience_code": "CB",
-      "organization": "智能无人配送创新创业项目",
-      "alternate_name": "智能无人配送创新创业项目",
+      "organization": "竞赛与创新项目｜名称已隐藏",
+      "alternate_name": "🔒 具体竞赛项目名称已隐藏",
       "experience_type": "竞赛与创新项目",
       "role": "商业分析与项目成员",
       "role_en": "Core Team Member | Business Analysis & Project Planning",
@@ -111,9 +111,9 @@
       "verified": 1
     },
     {
-      "experience_code": "EY",
-      "organization": "EY｜安永",
-      "alternate_name": "EY｜安永",
+      "experience_code": "ACCT",
+      "organization": "会计师事务所",
+      "alternate_name": "会计师事务所",
       "experience_type": "实习经历",
       "role": "Talent Team 实习生",
       "role_en": "Talent Team Intern",
@@ -134,8 +134,8 @@
     },
     {
       "experience_code": "NDC",
-      "organization": "国家大学生创新创业训练计划项目",
-      "alternate_name": "国家大学生创新创业训练计划项目",
+      "organization": "创新研究项目｜名称已隐藏",
+      "alternate_name": "🔒 具体竞赛与研究项目名称已隐藏",
       "experience_type": "科研与创新项目",
       "role": "核心成员",
       "role_en": "Core Team Member",
@@ -156,8 +156,8 @@
     },
     {
       "experience_code": "MZY",
-      "organization": "人口经济学课题组",
-      "alternate_name": "人口经济学课题组",
+      "organization": "社会科学研究项目｜名称已隐藏",
+      "alternate_name": "🔒 具体科研项目名称已隐藏",
       "experience_type": "科研经历",
       "role": "学生研究助理",
       "role_en": "Student Research Assistant",
@@ -177,9 +177,9 @@
       "verified": 1
     },
     {
-      "experience_code": "SOHU",
-      "organization": "Sohu｜搜狐",
-      "alternate_name": "Sohu｜搜狐",
+      "experience_code": "MEDIA",
+      "organization": "新媒体互联网公司",
+      "alternate_name": "新媒体互联网公司",
       "experience_type": "实习经历",
       "role": "HRBP 实习生",
       "role_en": "HRBP Intern",
@@ -199,9 +199,9 @@
       "verified": 1
     },
     {
-      "experience_code": "FESCO",
-      "organization": "FESCO",
-      "alternate_name": "FESCO",
+      "experience_code": "HRS",
+      "organization": "人力资源服务公司",
+      "alternate_name": "人力资源服务公司",
       "experience_type": "实习经历",
       "role": "人力资源实习生",
       "role_en": "Human Resources Intern",
@@ -1075,13 +1075,13 @@
       "title": "Experience Bank职业资产架构设计",
       "category": "信息架构／知识管理",
       "role_in_asset": "架构设计者、内容建模者与开发者",
-      "participation_level": "独立设计并迭代；以Waterdrop真实经历作为首个完整测试案例",
+      "participation_level": "独立设计并迭代；以一段脱敏招聘经历作为首个完整测试案例",
       "fact_status": "已确认并已实现核心结构",
       "background": "单一简历bullet无法同时保留完整事实、面试故事、不同岗位表达和证据；AI如果只读取简历容易丢失边界并夸大。",
-      "actions": "1. 将Experience与Asset分层。\n2. 设计Overview、Memory、STAR、Resume、Interview五个核心调用层。\n3. 增加Evidence、Fact Status、Permission和Contribution Boundary。\n4. 针对产品项目新增Design Decision、Lessons Learned和Differentiator。\n5. 使用Waterdrop经历逐项访谈、核验并封板。\n6. 将结构映射至SQLite字段和Streamlit详情页。",
+      "actions": "1. 将Experience与Asset分层。\n2. 设计Overview、Memory、STAR、Resume、Interview五个核心调用层。\n3. 增加Evidence、Fact Status、Permission和Contribution Boundary。\n4. 针对产品项目新增Design Decision、Lessons Learned和Differentiator。\n5. 使用脱敏招聘经历逐项访谈、核验并封板。\n6. 将结构映射至SQLite字段和Streamlit详情页。",
       "process_scope": "职业事实访谈、资产拆分、数据模型、使用规则、页面呈现和检索。",
-      "results": "完成Waterdrop Experience Bank v1.1并在应用中实现结构化资产展示、搜索和详情抽屉。",
-      "metrics": "Waterdrop母经历下已整理10余项资产，并建立统一使用规则。",
+      "results": "完成脱敏招聘经历 Experience Bank v1.1并在应用中实现结构化资产展示、搜索和详情抽屉。",
+      "metrics": "脱敏招聘经历下已整理10余项资产，并建立统一使用规则。",
       "skills": "Information Architecture, Knowledge Management, Database Design, HR Tech, Fact Verification",
       "tools": "SQLite, Python, Streamlit, 生成式AI",
       "ai_usage": "",
@@ -1096,11 +1096,11 @@
       "overview_strengths": "信息架构, Knowledge Management, 数据建模, HR Tech, 事实治理",
       "star_situation": "已有经历内容分散在简历、对话和回忆中，且AI容易混淆个人与团队贡献。",
       "star_task": "设计一套既完整又能被下游功能调用的职业资产结构。",
-      "star_action": "以Waterdrop为试点，将经历拆成母经历与资产，增加五层内容、证据、事实状态、权限和边界，并同步落入数据库。",
+      "star_action": "以一段脱敏招聘经历为试点，将经历拆成母经历与资产，增加五层内容、证据、事实状态、权限和边界，并同步落入数据库。",
       "star_result": "形成可复用的Experience Bank标准，并完成应用内的结构化呈现。",
-      "resume_bullets": "设计并实现以母经历—职业资产—知识层—证据层为核心的Experience Bank，支持STAR、简历映射、面试问题、事实状态、贡献边界及权限管理。\n以Waterdrop真实经历完成首个端到端案例，将10余项职业资产及使用规则写入SQLite并在Streamlit中实现检索与详情展示。",
+      "resume_bullets": "设计并实现以母经历—职业资产—知识层—证据层为核心的Experience Bank，支持STAR、简历映射、面试问题、事实状态、贡献边界及权限管理。\n以一段脱敏招聘经历完成首个端到端案例，将10余项职业资产及使用规则写入SQLite并在Streamlit中实现检索与详情展示。",
       "resume_strategy": "第一条适合产品/HR Tech；第二条适合项目与技术实现。",
-      "interview_questions": "为什么需要Experience Bank？\n你如何设计数据结构？\n如何防止AI夸大经历？\nWaterdrop案例如何帮助你迭代产品？",
+      "interview_questions": "为什么需要Experience Bank？\n你如何设计数据结构？\n如何防止AI夸大经历？\n脱敏招聘案例如何帮助你迭代产品？",
       "interview_followups": "为什么不只存STAR？\nAsset如何划分？\nFact Status如何影响生成？\n旧数据库如何兼容？",
       "evidence": "原始材料仅在个人版本中保存；公开 Demo 不包含内部文件或人员信息。",
       "asset_position": "这是产品核心数据层，也是最能体现信息架构、事实治理和求职场景理解的资产。",
@@ -1134,7 +1134,7 @@
       "actions": "1. 定义Confirmed、Approximate、Estimated、Need Verification等事实状态。\n2. 为资产增加Resume、Interview和Portfolio等用途标记。\n3. 记录贡献边界和禁止使用表达。\n4. 规定生成内容默认待本人审核。\n5. 将计划中、已设计未实现和已完成严格分开。\n6. 在招聘经历中落实候选人隐私、薪资和团队成果限制。",
       "process_scope": "事实状态、权限、隐私、人工审核、输出边界和风险提示。",
       "results": "形成可执行的AI使用规则，并在Experience Bank中保存资产级和经历级限制。",
-      "metrics": "Waterdrop经历已建立9类统一使用规则。",
+      "metrics": "脱敏招聘经历已建立9类统一使用规则。",
       "skills": "Responsible AI, Human-in-the-loop, Fact Verification, Data Governance, Risk Management",
       "tools": "SQLite, Python, 生成式AI",
       "ai_usage": "",
@@ -1150,7 +1150,7 @@
       "star_situation": "使用AI整理经历时，容易把团队数据、估算或未落地方案写成个人成果。",
       "star_task": "建立可落地的控制机制，降低生成内容失真。",
       "star_action": "设计事实状态、权限、贡献边界和表达限制，并将其作为数据库字段和生成规则保存。",
-      "star_result": "Waterdrop资产能够明确区分可用于简历、仅用于面试和仅内部保存的内容。",
+      "star_result": "脱敏招聘资产能够明确区分可用于简历、仅用于面试和仅内部保存的内容。",
       "resume_bullets": "设计Human-in-the-loop职业内容治理机制，通过事实状态、使用权限、贡献边界和禁止表达控制AI生成，降低简历与面试材料中的夸大和虚构风险。",
       "resume_strategy": "适合AI Product、HR Tech、Risk和Product岗位。",
       "interview_questions": "如何防止AI编造？\n你如何理解Human-in-the-loop？\n为什么取消匹配分数？\n如何处理敏感职业数据？",
@@ -1495,7 +1495,7 @@
       "experience_code": "CP"
     },
     {
-      "asset_code": "EY-01",
+      "asset_code": "ACCT-01",
       "title": "多办公室候选人流程推进",
       "category": "校园招聘／候选人运营",
       "role_in_asset": "校园招聘流程执行支持",
@@ -1524,7 +1524,7 @@
       "star_result": "完成所分配流程的执行与信息同步，支持多个办公室的校园招聘日常运转。",
       "resume_bullets": "中文：支持北京及北区多个办公室的校园招聘，独立执行候选人推荐、沟通、面试排期、结果通知及Offer、三方协议和入职前流程跟进。\nEnglish: Supported campus recruitment across multiple North China offices by coordinating candidate communication, interview scheduling, outcome notifications, offer documentation, and pre-onboarding processes.",
       "resume_strategy": "作为简历中的基础招聘流程条目使用，不添加未经核验的规模或转化数字。",
-      "interview_questions": "你在安永具体负责哪些招聘流程？\n你如何同时支持不同招聘经理和办公室？\n候选人或面试官临时改期时你如何处理？",
+      "interview_questions": "你在该会计师事务所具体负责哪些招聘流程？\n你如何同时支持不同招聘经理和办公室？\n候选人或面试官临时改期时你如何处理？",
       "interview_followups": "你是否参与简历筛选和录用决策？\n三方协议流程中你具体负责哪些执行环节？\n你如何确保候选人状态没有遗漏？",
       "evidence": "原始材料仅在个人版本中保存；公开 Demo 不包含内部文件或人员信息。",
       "asset_position": "用于证明校园招聘流程执行、候选人沟通、面试协调和多办公室任务支持能力；适合招聘、招聘运营和HR协调类岗位。",
@@ -1545,10 +1545,10 @@
       "differentiator": "在大型专业服务机构的多办公室校招环境中接触了较完整的候选人流程。",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "EY"
+      "experience_code": "ACCT"
     },
     {
-      "asset_code": "EY-02",
+      "asset_code": "ACCT-02",
       "title": "校园大使运营与线下宣讲支持",
       "category": "校园招聘活动／社群运营",
       "role_in_asset": "校园大使联络、社群运营及宣讲执行支持",
@@ -1598,11 +1598,11 @@
       "differentiator": "同时接触了线上校园大使社群和线下院校活动两个触点。",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "EY"
+      "experience_code": "ACCT"
     },
     {
-      "asset_code": "EY-03",
-      "title": "EY Corporate Open Day筹备与现场统筹",
+      "asset_code": "ACCT-03",
+      "title": "企业开放日筹备与现场统筹",
       "category": "活动运营／现场协调",
       "role_in_asset": "活动筹备与现场执行支持",
       "participation_level": "负责摄影及基础后勤联络、材料准备和现场环节统筹；活动主题、方案和关键决策由团队负责。",
@@ -1622,13 +1622,13 @@
       "external_permission": "可用于个人作品集展示",
       "include_in_resume": "0",
       "include_in_interview": "1",
-      "overview_summary": "参与EY Corporate Open Day筹办，联系摄影及基础后勤资源、准备活动材料，并在活动当天跟进各环节、安排参与人员行动和分发材料，承担现场流程衔接。",
+      "overview_summary": "参与企业开放日筹办，联系摄影及基础后勤资源、准备活动材料，并在活动当天跟进各环节、安排参与人员行动和分发材料，承担现场流程衔接。",
       "overview_strengths": "活动筹备, 供应方联络, 后勤协调, 现场统筹, 流程衔接, 材料管理",
       "star_situation": "Corporate Open Day包含多个活动环节、参与人员和后勤任务，需要现场统一衔接。",
       "star_task": "完成摄影和后勤联络、材料准备，并在当天支持各环节按计划推进。",
       "star_action": "提前核对流程和材料，活动当天跟进时间节点、安排人员、分发材料并处理基础现场问题。",
       "star_result": "完成本人负责范围的筹备和现场执行，支持活动按既定流程开展。",
-      "resume_bullets": "中文：参与EY Corporate Open Day筹办，负责摄影及后勤联络、活动材料准备和现场流程统筹，跟进各环节并协调参与人员与材料分发。\nEnglish: Supported EY Corporate Open Day by coordinating photography and event logistics, preparing materials, and managing on-site activity flow and participant guidance.",
+      "resume_bullets": "中文：参与企业开放日筹办，负责摄影及后勤联络、活动材料准备和现场流程统筹，跟进各环节并协调参与人员与材料分发。\nEnglish: Supported 企业开放日 by coordinating photography and event logistics, preparing materials, and managing on-site activity flow and participant guidance.",
       "resume_strategy": "适合活动运营或项目协调岗位；常规招聘简历中可不单独使用。",
       "interview_questions": "你在Corporate Open Day中具体做了什么？\n如何保证多个活动环节顺利衔接？\n现场出现临时问题时你如何处理？",
       "interview_followups": "你是否负责活动策划和预算？\n摄影及后勤联络具体包括什么？",
@@ -1651,16 +1651,16 @@
       "differentiator": "在企业开放日中承担了从外部后勤联络到当天现场衔接的连续执行任务。",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "EY"
+      "experience_code": "ACCT"
     },
     {
-      "asset_code": "FESCO-01",
+      "asset_code": "HRS-01",
       "title": "内部及客户外包岗位招聘全流程推进",
       "category": "招聘交付／候选人运营",
       "role_in_asset": "候选人招聘流程独立执行者",
       "participation_level": "独立完成简历筛选、电话邀约、候选人推荐、面试排期、通知、结果跟进、Offer制作与发送、电话沟通和入职跟进；参与面试旁听，但正式面试、面试评价、薪酬审批和录用决定由正式团队完成。",
       "fact_status": "核心流程及80+候选人、若干份Offer、较高比例+最终入职率已确认",
-      "background": "FESCO人力资源部既支持公司内部岗位，也为客户企业招聘部分外包岗位。不同岗位的候选人来源、沟通信息和流程节点有所差异，需要持续核对岗位要求并保持候选人与内部团队的信息同步。",
+      "background": "人力资源服务公司人力资源部既支持公司内部岗位，也为客户企业招聘部分外包岗位。不同岗位的候选人来源、沟通信息和流程节点有所差异，需要持续核对岗位要求并保持候选人与内部团队的信息同步。",
       "actions": "1. 根据内部职能岗、业务岗及客户外包岗位要求筛选候选人简历。\n2. 独立电话联系候选人，确认求职意向、基础情况和面试可用时间。\n3. 将符合基础要求的候选人推荐至后续招聘流程。\n4. 协调候选人与内部面试安排，发送面试通知并处理时间变更。\n5. 参与面试旁听，了解岗位判断方式，但不承担正式面试和评价。\n6. 跟进面试结果，并根据团队确认的信息通知候选人后续安排。\n7. 根据已审批信息制作并发送Offer，通过电话完成Offer通知和基础沟通。\n8. 持续跟进候选人的接受情况、入职意向和后续入职节点。\n9. 使用Excel及内部记录维护候选人阶段，减少流程遗漏。",
       "process_scope": "简历筛选、电话邀约、候选人推荐、面试排期、面试通知、面试结果跟进、Offer制作与发送、Offer电话沟通及入职跟进；不包括正式面试、薪酬谈判和最终录用决策。",
       "results": "累计独立安排80余名候选人面试，制作并发送20余份Offer；所负责Offer候选人最终入职率达到较高比例以上。",
@@ -1675,15 +1675,15 @@
       "external_permission": "可用于个人作品集展示",
       "include_in_resume": "1",
       "include_in_interview": "1",
-      "overview_summary": "同时支持FESCO内部职能岗、业务岗及客户企业外包岗位招聘，独立推进从简历筛选和电话邀约到面试安排、Offer发放及入职跟进的候选人流程；累计安排80余名候选人面试，制作并发送20余份Offer，所负责Offer候选人最终入职率达较高比例以上。",
+      "overview_summary": "同时支持人力资源服务公司内部职能岗、业务岗及客户企业外包岗位招聘，独立推进从简历筛选和电话邀约到面试安排、Offer发放及入职跟进的候选人流程；累计安排80余名候选人面试，制作并发送20余份Offer，所负责Offer候选人最终入职率达较高比例以上。",
       "overview_strengths": "招聘全流程, 简历筛选, 候选人沟通, 面试排期, Offer管理, 入职跟进, 内部与外包岗位支持",
       "star_situation": "人力资源部需要同时推进公司内部岗位和客户外包岗位招聘，候选人处于筛选、面试、Offer及入职等不同阶段。",
       "star_task": "独立执行候选人端招聘流程，确保不同岗位的信息、面试安排和后续节点准确推进。",
       "star_action": "按岗位要求筛选简历并电话邀约，推荐候选人后独立协调面试和通知；面试后持续跟进结果，根据审批信息制作、发送Offer并电话沟通，直至候选人完成入职衔接。",
       "star_result": "累计安排80余名候选人面试，制作并发送20余份Offer，所负责Offer候选人最终入职率达较高比例以上。",
       "resume_bullets": "中文：支持内部职能岗、业务岗及客户外包岗位招聘，独立负责简历筛选、电话邀约、候选人推荐、面试排期、结果跟进及Offer制作与发送，累计安排多名候选人面试并发出若干份Offer，候选人最终入职率达较高比例+。\nEnglish: Supported recruitment for internal and outsourced client roles, independently screening resumes, contacting candidates, scheduling 80+ candidate interviews, and preparing and issuing 20+ offers with a 较高比例+ joining rate.",
-      "resume_strategy": "作为FESCO最核心的一条简历内容。招聘岗位保留完整数字；综合HR岗位可与员工入职流程和培训内容组合，但不得弱化个人独立执行范围。",
-      "interview_questions": "你在FESCO负责哪些招聘环节？\n内部岗位和客户外包岗位招聘有什么区别？\n你如何管理80多名候选人的面试安排？\n20多份Offer由你完成哪些具体动作？\n较高比例以上入职率是如何实现的？",
+      "resume_strategy": "作为人力资源服务公司最核心的一条简历内容。招聘岗位保留完整数字；综合HR岗位可与员工入职流程和培训内容组合，但不得弱化个人独立执行范围。",
+      "interview_questions": "你在人力资源服务公司负责哪些招聘环节？\n内部岗位和客户外包岗位招聘有什么区别？\n你如何管理80多名候选人的面试安排？\n20多份Offer由你完成哪些具体动作？\n较高比例以上入职率是如何实现的？",
       "interview_followups": "你是否独立面试候选人？\n你参与面试旁听时主要观察什么？\n候选人临时改期或对Offer有疑问时如何处理？\n谁负责最终录用和薪酬决定？",
       "evidence": "原始材料仅在个人版本中保存；公开 Demo 不包含内部文件或人员信息。",
       "asset_position": "该经历的核心资产，用于证明简历筛选、候选人沟通、面试协调、Offer执行和入职转化能力；适合招聘、招聘运营、Talent Acquisition和综合HR岗位。",
@@ -1704,10 +1704,10 @@
       "differentiator": "在较早期实习中即完整接触内部岗位与第三方外包岗位招聘，并将候选人流程推进至Offer和入职阶段。",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "FESCO"
+      "experience_code": "HRS"
     },
     {
-      "asset_code": "FESCO-02",
+      "asset_code": "HRS-02",
       "title": "员工入职信息与档案流程跟进",
       "category": "员工入职／HR运营",
       "role_in_asset": "员工入职流程与档案支持",
@@ -1735,7 +1735,7 @@
       "star_action": "收集并核对员工信息，将确认内容录入内部系统，跟进档案和邮件通知，并持续追踪入职后的流程。",
       "star_result": "支持分配范围内的新员工顺利进入后续入职及培训流程。",
       "resume_bullets": "中文：收集并核对新员工入职信息，完成人员信息录入、员工档案跟进、邮件通知及入职后续流程追踪，保障员工入职手续准确推进。\nEnglish: Collected and verified new-hire information, updated internal HR records, and followed up on employee files, email notifications, and post-entry onboarding processes.",
-      "resume_strategy": "适合综合HR和HR Operations岗位；招聘岗位简历篇幅有限时，可与FESCO-03合并为第二条。",
+      "resume_strategy": "适合综合HR和HR Operations岗位；招聘岗位简历篇幅有限时，可与人力资源服务公司-03合并为第二条。",
       "interview_questions": "你具体负责哪些员工入职流程？\n如何保证员工信息录入准确？\n员工档案或信息不完整时如何跟进？\n你是否实际负责转岗、调岗和离职？",
       "interview_followups": "使用的内部系统是什么？\n哪些信息需要二次核对？\n入职后的流程如何与培训衔接？",
       "evidence": "原始材料仅在个人版本中保存；公开 Demo 不包含内部文件或人员信息。",
@@ -1757,10 +1757,10 @@
       "differentiator": "除招聘候选人流程外，也接触到新员工进入组织后的基础HR运营流程。",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "FESCO"
+      "experience_code": "HRS"
     },
     {
-      "asset_code": "FESCO-03",
+      "asset_code": "HRS-03",
       "title": "新员工入职培训材料制作与每周宣讲",
       "category": "新员工培训／沟通表达",
       "role_in_asset": "入职培训材料制作者与独立宣讲人",
@@ -1788,7 +1788,7 @@
       "star_action": "整理公司介绍、入职流程和员工手册等信息，制作培训材料，并每周独立完成内容讲解。",
       "star_result": "持续完成每周新员工入职培训，并形成可重复使用的培训材料。",
       "resume_bullets": "中文：独立制作新员工入职培训材料并开展每周入职宣讲，围绕公司介绍、入职流程及员工手册等内容完成结构化讲解。\nEnglish: Independently developed onboarding materials and delivered weekly new-hire orientation covering the company introduction, onboarding process, and employee handbook.",
-      "resume_strategy": "综合HR、People Operations和培训支持岗位可单独保留；招聘岗位可与FESCO-02合并为一条。",
+      "resume_strategy": "综合HR、People Operations和培训支持岗位可单独保留；招聘岗位可与人力资源服务公司-02合并为一条。",
       "interview_questions": "你如何准备每周新员工入职培训？\n培训材料是由谁制作的？\n你主要讲解哪些内容？\n你如何保证制度信息准确？",
       "interview_followups": "累计开展了多少场？\n每场大概有多少人？\n培训材料使用什么工具制作？\n哪些内容由你决定，哪些来自公司制度？",
       "evidence": "原始材料仅在个人版本中保存；公开 Demo 不包含内部文件或人员信息。",
@@ -1810,7 +1810,7 @@
       "differentiator": "在招聘和入职流程之外，能够独立把HR信息整理成材料并面向新员工持续开展宣讲。",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "FESCO"
+      "experience_code": "HRS"
     },
     {
       "asset_code": "MZY-01",
@@ -1920,7 +1920,7 @@
     },
     {
       "asset_code": "NDC-01",
-      "title": "就业压力与婚育观研究框架及文献综述",
+      "title": "研究框架与文献综述",
       "category": "社会科学研究／文献综述",
       "role_in_asset": "5人团队核心成员",
       "participation_level": "与团队分工协作完成文献检索、综述和研究框架材料",
@@ -2131,13 +2131,13 @@
       "experience_code": "NDC"
     },
     {
-      "asset_code": "SOHU-01",
-      "title": "搜狐焦点总部招聘流程与候选人运营",
+      "asset_code": "MEDIA-01",
+      "title": "该新媒体互联网公司业务团队招聘流程与候选人运营",
       "category": "招聘执行／HRBP支持",
       "role_in_asset": "跟随HRBP的招聘流程执行者",
       "participation_level": "在HRBP指导下独立完成所分配岗位的JD完善、职位发布、候选人搜索、简历筛选、电话初筛、候选人推荐、面试排期、通知和结果跟进；正式面试、录用、薪酬及Offer审批由HRBP和业务负责。",
       "fact_status": "流程已确认；候选人规模和最终入职人数为回忆估算",
-      "background": "搜狐焦点总部需要招聘内容、新媒体、设计、销售和HR等不同类型岗位。本人跟随一名HRBP工作，承担所分配岗位的日常招聘执行，并与业务部门、候选人和HRBP保持信息同步。",
+      "background": "该新媒体互联网公司业务团队需要招聘内容、新媒体、设计、销售和HR等不同类型岗位。本人跟随一名HRBP工作，承担所分配岗位的日常招聘执行，并与业务部门、候选人和HRBP保持信息同步。",
       "actions": "1. 接收并理解HRBP或业务部门提出的招聘需求，确认岗位职责、经验要求和到岗条件。\n2. 在原有内容基础上修改和完善JD，使其适合招聘平台发布。\n3. 通过Moka、BOSS直聘、猎聘及智联招聘发布岗位并主动搜索候选人。\n4. 根据行业背景、工作经验、专业技能和稳定性筛选简历。\n5. 独立开展电话初步沟通，确认求职意愿、相关经历、离职原因、薪资预期、到岗时间和地点接受度。\n6. 整理沟通结果并将符合基础要求的候选人推荐给HRBP或业务部门。\n7. 跟进业务简历筛选结果，协调候选人与面试官时间并发送面试通知。\n8. 处理面试时间变更，跟进面试反馈并根据确认结果通知候选人。\n9. 在Moka中更新候选人状态，并协助推进后续Offer及入职流程。",
       "process_scope": "招聘需求理解、JD完善、职位发布、候选人搜索、简历筛选、电话初筛、候选人推荐、面试排期、面试通知、结果跟进、Moka状态维护及入职流程支持；不包括正式面试和最终录用决策。",
       "results": "按现有回忆累计推荐约多名候选人，并协助推动十余名候选人最终入职；完成所分配岗位的日常招聘流程执行和候选人信息维护。",
@@ -2152,15 +2152,15 @@
       "external_permission": "可用于个人作品集展示",
       "include_in_resume": "1",
       "include_in_interview": "1",
-      "overview_summary": "支持搜狐焦点总部视频剪辑、新媒体运营、虚拟人设计师、销售高级经理及HR实习生等岗位招聘，独立推进候选人搜索、筛选、电话沟通、推荐和面试协调，并使用Moka维护招聘进度；按现有回忆累计推荐约多名候选人，协助推动十余名候选人最终入职。",
+      "overview_summary": "支持该新媒体互联网公司业务团队视频剪辑、新媒体运营、虚拟人设计师、销售高级经理及HR实习生等岗位招聘，独立推进候选人搜索、筛选、电话沟通、推荐和面试协调，并使用Moka维护招聘进度；按现有回忆累计推荐约多名候选人，协助推动十余名候选人最终入职。",
       "overview_strengths": "招聘流程, 候选人搜寻, 电话初筛, 面试协调, Moka, 多岗位支持, HRBP协作",
-      "star_situation": "搜狐焦点总部同时招聘内容、新媒体、设计、销售和HR等不同类型岗位。",
+      "star_situation": "该新媒体互联网公司业务团队同时招聘内容、新媒体、设计、销售和HR等不同类型岗位。",
       "star_task": "在跟随HRBP工作的同时，独立完成所分配岗位的候选人搜索、初筛、推荐和流程协调。",
       "star_action": "根据不同岗位完善JD和设置搜索关键词，主动搜索并筛选候选人，独立电话确认求职信息；将合适候选人推荐给HRBP和业务，随后协调面试、发送通知、跟进结果并在Moka中更新状态。",
       "star_result": "完成多类岗位的持续招聘支持，累计推荐约多名候选人，并协助推动十余名候选人最终入职。",
-      "resume_bullets": "中文：支持搜狐焦点总部视频剪辑、新媒体运营、虚拟人设计师及销售等岗位招聘，负责JD完善、人才搜索、简历筛选和候选人电话初筛，累计推荐约多名候选人。\n中文：使用Moka维护候选人流程，协调面试排期、发送面试及结果通知，并协助推动十余名候选人完成后续录用及入职流程。\nEnglish: Supported recruitment for Sohu Focus headquarters across content, new media, design and business roles, covering JD refinement, candidate sourcing, resume screening, initial phone interviews and interview coordination through Moka.",
+      "resume_bullets": "中文：支持该新媒体互联网公司业务团队视频剪辑、新媒体运营、虚拟人设计师及销售等岗位招聘，负责JD完善、人才搜索、简历筛选和候选人电话初筛，累计推荐约多名候选人。\n中文：使用Moka维护候选人流程，协调面试排期、发送面试及结果通知，并协助推动十余名候选人完成后续录用及入职流程。\nEnglish: Supported recruitment for 该新媒体互联网公司 Focus headquarters across content, new media, design and business roles, covering JD refinement, candidate sourcing, resume screening, initial phone interviews and interview coordination through Moka.",
       "resume_strategy": "招聘岗位可使用前两条；数字必须写约100名和十余名，不使用108人、较高比例或精确14人。",
-      "interview_questions": "你在搜狐具体负责哪些招聘环节？\n你如何进行候选人电话初筛？\n你如何同时支持不同类型岗位？\n你是否参与正式面试和录用决策？\n你如何使用Moka维护候选人流程？",
+      "interview_questions": "你在该新媒体互联网公司具体负责哪些招聘环节？\n你如何进行候选人电话初筛？\n你如何同时支持不同类型岗位？\n你是否参与正式面试和录用决策？\n你如何使用Moka维护候选人流程？",
       "interview_followups": "约多名候选人的统计依据是什么？\n十余名最终入职中哪些环节由你完成？\n候选人临时改期或业务反馈延迟时如何处理？\n你如何判断候选人值得推荐？",
       "evidence": "原始材料仅在个人版本中保存；公开 Demo 不包含内部文件或人员信息。",
       "asset_position": "该经历的核心资产，用于证明招聘需求理解、人才搜索、电话初筛、面试协调及Moka流程管理能力；适合招聘、Talent Acquisition、招聘运营及初级HRBP岗位。",
@@ -2181,10 +2181,10 @@
       "differentiator": "在早期实习阶段即接触从需求理解到面试及入职跟进的较完整招聘执行链路。",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "SOHU"
+      "experience_code": "MEDIA"
     },
     {
-      "asset_code": "SOHU-02",
+      "asset_code": "MEDIA-02",
       "title": "虚拟人设计师困难岗位人才Mapping",
       "category": "困难岗位招聘／人才研究",
       "role_in_asset": "候选人搜索与市场信息整理支持",
@@ -2234,10 +2234,10 @@
       "differentiator": "不仅进行候选人搜索，还尝试把难招原因转化为HRBP和业务可讨论的市场信息。",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "SOHU"
+      "experience_code": "MEDIA"
     },
     {
-      "asset_code": "SOHU-03",
+      "asset_code": "MEDIA-03",
       "title": "新员工培训材料与现场执行支持",
       "category": "培训执行／辅助资产",
       "role_in_asset": "基础培训执行支持",
@@ -2266,7 +2266,7 @@
       "star_result": "按安排完成基础支持，保障培训材料及时到位。",
       "resume_bullets": "中文：协助新员工培训执行，完成培训材料打印、整理及现场准备等支持工作。",
       "resume_strategy": "简历篇幅充足时可作为综合HR补充；不得使用‘培训体系建设’。",
-      "interview_questions": "你是否接触过培训工作？\n你在搜狐的培训工作具体做了什么？",
+      "interview_questions": "你是否接触过培训工作？\n你在该新媒体互联网公司的培训工作具体做了什么？",
       "interview_followups": "你是否设计课程或负责讲授？\n你是否参与培训效果评估？",
       "evidence": "原始材料仅在个人版本中保存；公开 Demo 不包含内部文件或人员信息。",
       "asset_position": "用于保留真实培训接触经历和职责边界；可作为综合HR面试补充，不建议作为核心简历成果。",
@@ -2287,10 +2287,10 @@
       "differentiator": "无显著差异化，仅作为早期综合HR接触记录。",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "SOHU"
+      "experience_code": "MEDIA"
     },
     {
-      "asset_code": "SOHU-04",
+      "asset_code": "MEDIA-04",
       "title": "早期职场适应与主动复盘",
       "category": "职业成长／内部反思",
       "role_in_asset": "个人成长与职业探索",
@@ -2313,13 +2313,13 @@
       "include_in_interview": "1",
       "overview_summary": "从最初较拘谨、主要被动完成基础任务，逐渐意识到需要主动与直属HRBP和团队成员交流，理解他们如何判断岗位和与业务合作，并通过复盘思考自己应从实习中学习什么以及是否适合HR方向。",
       "overview_strengths": "主动沟通, 团队融入, 向上学习, 职业探索, 复盘意识, 成长型思维",
-      "star_situation": "刚进入搜狐实习时较拘谨，主要关注完成分配的基础招聘任务。",
+      "star_situation": "刚进入该新媒体互联网公司实习时较拘谨，主要关注完成分配的基础招聘任务。",
       "star_task": "希望不仅完成任务，也理解HRBP的工作方式和自己是否适合HR方向。",
       "star_action": "开始主动与直属HRBP和团队成员交流，了解岗位优先级、业务协作和不同HR角色；完成任务后复盘工作逻辑，并将观察用于后续实习。",
       "star_result": "建立更主动的职场沟通和复盘意识，并逐步明确继续在人力资源方向积累经验。",
       "resume_bullets": "",
       "resume_strategy": "不进入简历；仅用于面试成长叙事。",
-      "interview_questions": "你在搜狐最大的成长是什么？\n早期实习中你遇到的个人挑战是什么？\n为什么后来继续选择HR方向？\n你如何从基础工作中学习？",
+      "interview_questions": "你在该新媒体互联网公司最大的成长是什么？\n早期实习中你遇到的个人挑战是什么？\n为什么后来继续选择HR方向？\n你如何从基础工作中学习？",
       "interview_followups": "你具体如何主动沟通？\n这段反思如何影响后续实习？\n有没有具体绩效结果证明成长？",
       "evidence": "原始材料仅在个人版本中保存；公开 Demo 不包含内部文件或人员信息。",
       "asset_position": "用于回答实习收获、早期职场挑战和职业选择问题；不作为简历成果，主要服务面试中的成长叙事。",
@@ -2330,7 +2330,7 @@
       "star_b_situation": "工作内容较基础，短期内难以形成复杂项目成果。",
       "star_b_task": "从基础工作中提取可持续的学习价值。",
       "star_b_action": "关注正式员工的判断方式，并把招聘流程、沟通方式和个人不足纳入后续复盘。",
-      "star_b_result": "为后续EY、水滴、KPMG等经历中的主动承担和更成熟执行打下基础。",
+      "star_b_result": "为后续EY、该互联网科技公司、KPMG等经历中的主动承担和更成熟执行打下基础。",
       "resume_roles": "All entry-level roles; behavioural interviews",
       "resume_keywords": "learning agility, proactive communication, reflection, teamwork, career exploration",
       "interview_angles": "坦诚工作基础，重点表达学习方式和后续行为变化。",
@@ -2340,10 +2340,10 @@
       "differentiator": "能够诚实区分基础任务与真正成长，并把早期经验转化为后续更成熟的工作方式。",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "SOHU"
+      "experience_code": "MEDIA"
     },
     {
-      "asset_code": "WD-01",
+      "asset_code": "TECH-01",
       "title": "多岗位招聘交付与优先级管理",
       "category": "招聘交付",
       "role_in_asset": "所分配岗位的招聘执行负责人",
@@ -2393,10 +2393,10 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
-      "asset_code": "WD-02",
+      "asset_code": "TECH-02",
       "title": "舆情公关困难岗位交付",
       "category": "困难岗位招聘",
       "role_in_asset": "岗位招聘执行与人才市场反馈支持",
@@ -2446,16 +2446,16 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
-      "asset_code": "WD-03",
-      "title": "水滴招聘小红书账号从0到1",
+      "asset_code": "TECH-03",
+      "title": "该互联网科技公司招聘小红书账号从0到1",
       "category": "雇主品牌／招聘运营",
       "role_in_asset": "项目负责人／Project Owner",
       "participation_level": "主动发起并负责账号创建、内容机制、日常运营、跨部门审核和交接",
       "fact_status": "核心事实已确认，内容篇数待后台核验",
-      "background": "观察到大型企业逐渐通过小红书进行雇主品牌传播、校园招聘宣传和年轻候选人触达，而水滴招聘当时尚未建立独立的官方招聘账号。",
+      "background": "观察到大型企业逐渐通过小红书进行雇主品牌传播、校园招聘宣传和年轻候选人触达，而该互联网科技公司招聘当时尚未建立独立的官方招聘账号。",
       "actions": "1. 主动向团队提出项目建议，说明平台用户特点、目标候选人和招聘场景。\n2. 整理营业执照等企业认证材料，完成专业号创建和基础设置。\n3. 研究同类企业招聘账号的内容方向、更新频率和互动方式。\n4. 制定短期冷启动、中期稳定更新和长期招聘传播规划。\n5. 将内容划分为招聘信息、企业文化、员工生活和求职干货等栏目。\n6. 制定内容日历，保持每周约2篇的发布节奏。\n7. 独立推进选题、资料收集、文案、日常排版、发布和数据复盘。\n8. 与招聘负责人核对岗位和业务信息。\n9. 对接品牌、公关等部门推进公开内容审核和修改。\n10. 向公司其他官方账号运营同事学习平台规则和运营经验。\n11. 将小红书二维码和关注引导融入校招、内推和线下宣讲。\n12. 通过内部正常关注、转发和互动支持冷启动。\n13. 根据内容表现调整选题和表达方式。\n14. 实习结束前整理账号运营方式、内容节奏和待办事项，完成交接。",
       "process_scope": "项目建议、企业认证、账号搭建、内容机制、日常运营、跨部门审核、渠道联动、数据复盘和项目交接。",
       "results": "账号持续运营约5个月，截至2025年3月交接时粉丝量达到2,900；离职后账号继续运营，并形成可持续的内容机制。",
@@ -2470,13 +2470,13 @@
       "external_permission": "可用于个人作品集展示",
       "include_in_resume": "1",
       "include_in_interview": "1",
-      "overview_summary": "主动提出并从0到1搭建水滴招聘官方小红书账号，完成企业认证、账号定位、内容栏目、发布节奏和跨部门审核机制，持续运营至2025年3月并完成交接；截至交接时账号粉丝量达到2,900。",
+      "overview_summary": "主动提出并从0到1搭建该互联网科技公司招聘官方小红书账号，完成企业认证、账号定位、内容栏目、发布节奏和跨部门审核机制，持续运营至2025年3月并完成交接；截至交接时账号粉丝量达到2,900。",
       "overview_strengths": "从0到1项目, 雇主品牌, 内容运营, 跨部门协作, 项目交接, 资源整合",
-      "star_situation": "水滴招聘尚未建立独立的小红书账号，但年轻候选人逐渐在该平台获取企业和求职信息。",
+      "star_situation": "该互联网科技公司招聘尚未建立独立的小红书账号，但年轻候选人逐渐在该平台获取企业和求职信息。",
       "star_task": "从零搭建一个能够持续运营、符合企业审核要求并服务招聘场景的官方账号。",
       "star_action": "主动提出方案，完成企业认证、账号定位和内容日历；独立推进选题、文案、排版、发布和复盘；协调招聘、品牌和公关审核，并与校招、内推和线下活动联动。",
       "star_result": "账号持续运营约5个月，截至交接时粉丝达到2,900，并形成后续可继续使用的运营机制。",
-      "resume_bullets": "主动发起并从0到1搭建水滴招聘小红书官方账号，负责企业认证、账号定位、内容策划、跨部门审核及日常运营，建立每周稳定更新机制，截至2025年3月账号粉丝量达到2,900。\n作为项目负责人拆解账号认证、内容规划、审核协同、渠道联动和交接流程，并将账号与校招、员工内推及线下招聘活动结合。",
+      "resume_bullets": "主动发起并从0到1搭建该互联网科技公司招聘小红书官方账号，负责企业认证、账号定位、内容策划、跨部门审核及日常运营，建立每周稳定更新机制，截至2025年3月账号粉丝量达到2,900。\n作为项目负责人拆解账号认证、内容规划、审核协同、渠道联动和交接流程，并将账号与校招、员工内推及线下招聘活动结合。",
       "resume_strategy": "第一条适合招聘运营、雇主品牌和内容运营岗位；第二条适合项目管理、综合运营和HR Tech岗位。",
       "interview_questions": "讲一次你主动发起的项目。\n讲一次从0到1的经历。\n没有成熟流程时你如何推进项目？\n如何协调招聘、品牌和公关团队？\n无法准确追踪转化时如何评价项目成功？",
       "interview_followups": "为什么选择小红书，而不是其他平台？\n2,900粉丝主要通过哪些方式增长？\n哪些内容表现最好，依据什么调整选题？\n你与品牌、公关的审核流程是什么？\n交接时具体留下了哪些机制？",
@@ -2499,10 +2499,10 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
-      "asset_code": "WD-04",
+      "asset_code": "TECH-04",
       "title": "校招秋招预热及员工内推活动",
       "category": "校招运营／活动运营",
       "role_in_asset": "本届活动主要负责人",
@@ -2552,10 +2552,10 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
-      "asset_code": "WD-05",
+      "asset_code": "TECH-05",
       "title": "香港校园招聘渠道调研与拓展",
       "category": "校园招聘／渠道拓展",
       "role_in_asset": "部分院校独立建联与重点高校调研支持",
@@ -2605,10 +2605,10 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
-      "asset_code": "WD-06",
+      "asset_code": "TECH-06",
       "title": "招聘视觉物料与多渠道传播",
       "category": "招聘传播／内容运营",
       "role_in_asset": "招聘需求转化、文案、项目协调、审核推进和发布",
@@ -2658,10 +2658,10 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
-      "asset_code": "WD-07",
+      "asset_code": "TECH-07",
       "title": "AI招聘工具市场调研",
       "category": "HR Tech／AI招聘",
       "role_in_asset": "市场调研与初步可行性评估负责人",
@@ -2711,10 +2711,10 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
-      "asset_code": "WD-08",
+      "asset_code": "TECH-08",
       "title": "周度招聘数据汇总与通晒",
       "category": "招聘运营／数据汇总",
       "role_in_asset": "对应周次的最终汇总与发布负责人",
@@ -2764,10 +2764,10 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
-      "asset_code": "WD-09",
+      "asset_code": "TECH-09",
       "title": "Offer流程、招聘知识沉淀与实习生带教",
       "category": "招聘流程／知识管理",
       "role_in_asset": "Offer流程执行与新人支持",
@@ -2817,20 +2817,20 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
-      "asset_code": "WD-10A",
+      "asset_code": "TECH-10A",
       "title": "竞对人才Mapping支持",
       "category": "人才研究／辅助资产",
       "role_in_asset": "辅助参与",
-      "participation_level": "学习团队既有Mapping框架并协助接触少量候选人",
+      "participation_level": "学习团队既有Mapping框架并协助候选人接触",
       "fact_status": "参与范围已确认，成果归因受限",
       "background": "团队开展竞对人才研究，需要按照既有框架了解目标公司和潜在候选人的职业状态。",
-      "actions": "1. 学习团队已有的Mapping框架和候选人信息维度。\n2. 了解目标公司、岗位和人才范围。\n3. 协助接触少量竞对候选人。\n4. 了解候选人的岗位职责、公司背景和职业状态。\n5. 在合规范围内了解薪资福利和求职意向。\n6. 判断候选人是否存在潜在流动可能。\n7. 将有效信息纳入团队整体工作。",
-      "process_scope": "既有Mapping框架学习、少量候选人接触、职业背景与意向信息收集。",
-      "results": "完成少量竞对候选人信息补充和潜在意向识别，作为团队Mapping工作的辅助输入。",
-      "metrics": "接触数量较少，不对外量化。",
+      "actions": "1. 学习团队已有的Mapping框架和候选人信息维度。\n2. 了解目标公司、岗位和人才范围。\n3. 协助接触竞对候选人。\n4. 了解候选人的岗位职责、公司背景和职业状态。\n5. 在合规范围内了解薪资福利和求职意向。\n6. 判断候选人是否存在潜在流动可能。\n7. 将有效信息纳入团队整体工作。",
+      "process_scope": "既有Mapping框架学习、候选人接触、职业背景与意向信息收集。",
+      "results": "完成竞对候选人信息补充和潜在意向识别，作为团队Mapping工作的辅助输入。",
+      "metrics": "相关数据不对外量化。",
       "skills": "人才Mapping基础, 被动候选人沟通, 人才研究, 信息收集, 市场敏感度",
       "tools": "",
       "ai_usage": "",
@@ -2841,12 +2841,12 @@
       "external_permission": "可用于个人作品集展示",
       "include_in_resume": "0",
       "include_in_interview": "1",
-      "overview_summary": "学习团队既有人才Mapping方法，协助接触少量竞对候选人，了解岗位背景、公司情况、薪资福利和求职意向，并识别可能具有流动意愿的潜在人选。",
+      "overview_summary": "学习团队既有人才Mapping方法，协助接触竞对候选人，了解岗位背景、公司情况、薪资福利和求职意向，并识别可能具有流动意愿的潜在人选。",
       "overview_strengths": "人才Mapping基础, 被动候选人沟通, 人才研究, 信息收集, 市场敏感度",
       "star_situation": "团队需要了解竞对人才情况并识别潜在流动人选。",
-      "star_task": "在既有框架下支持少量候选人接触和信息收集。",
-      "star_action": "学习信息维度，接触少量候选人并了解岗位背景、薪资福利和求职意向。",
-      "star_result": "为团队整体Mapping工作补充少量候选人信息和潜在意向线索。",
+      "star_task": "在既有框架下支持候选人接触和信息收集。",
+      "star_action": "学习信息维度，接触候选人并了解岗位背景、薪资福利和求职意向。",
+      "star_result": "为团队整体Mapping工作补充候选人信息和潜在意向线索。",
       "resume_bullets": "",
       "resume_strategy": "不建议作为核心简历bullet；可在招聘面试中作为人才研究和被动候选人沟通的补充。",
       "interview_questions": "你接触过人才Mapping吗？\n如何与被动候选人建立初步沟通？\n如何判断候选人是否有潜在流动意愿？",
@@ -2870,10 +2870,10 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
-      "asset_code": "WD-10B",
+      "asset_code": "TECH-10B",
       "title": "年度招聘预算支持",
       "category": "招聘运营／辅助资产",
       "role_in_asset": "需求收集与预算表支持",
@@ -2923,10 +2923,10 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
-      "asset_code": "WD-10C",
+      "asset_code": "TECH-10C",
       "title": "面试官管理项目接触",
       "category": "内部知识资产",
       "role_in_asset": "项目框架接触与学习",
@@ -2976,19 +2976,19 @@
       "differentiator": "",
       "evidence_status": "真实经历已核对；公开展示内容已脱敏",
       "interview_memory_notes": "",
-      "experience_code": "WD"
+      "experience_code": "TECH"
     },
     {
       "asset_code": "XN-01",
-      "title": "中国企业人力资源管理九大新趋势研究与第十章重构",
+      "title": "人力资源趋势研究与章节重构",
       "category": "人力资源管理研究／专业写作",
       "role_in_asset": "研究资料搜集、趋势内容梳理、部分初稿撰写与多轮修订参与者",
       "participation_level": "深度参与第十章从零到一研究与写作；九大趋势最终框架、标题及理论定位由导师和作者团队共同讨论确定。",
       "fact_status": "章节参与和署名稿件已确认；投稿及录用状态待核验",
-      "background": "《HR+三支柱》旧版出版约五年后，企业从规模扩张转向提质增效，人工智能和数字化加速应用，平台用工与组织灵活化发展，新生代员工诉求、全球人才竞争和HR职业边界也发生变化。原有趋势内容需要重新研究，而不是只做文字校对。",
+      "background": "某人力资源管理专业书稿旧版出版约五年后，企业从规模扩张转向提质增效，人工智能和数字化加速应用，平台用工与组织灵活化发展，新生代员工诉求、全球人才竞争和HR职业边界也发生变化。原有趋势内容需要重新研究，而不是只做文字校对。",
       "actions": "1. 跟随导师参加人力资源管理学术会议及HR前沿专题研讨。\n2. 记录并整理学者、企业实践者和相关研究中的新观点。\n3. 围绕人工智能、数字化、灵活用工、知识型员工、全球人才、人力资本及HR产品化等主题搜集研究文献和企业案例。\n4. 按科技、经济、社会文化和政策法规等外部因素归类研究资料。\n5. 判断某一变化是短期热点还是可能长期影响组织与人才管理的趋势。\n6. 将相近主题整合，识别不同趋势之间的重复和边界。\n7. 参与九大趋势框架讨论及部分内容初稿撰写。\n8. 将理论观点、外部环境、企业案例和管理启示组织为章节内容。\n9. 根据导师及其他作者反馈补充文献、替换案例、调整结构和表达。\n10. 参与将书稿趋势研究进一步整理为署名论文稿件。",
       "process_scope": "会议与研讨信息整理、文献和案例检索、资料分类、趋势内容梳理、章节初稿、反馈修改、参考资料核对及论文稿件转化。",
-      "results": "形成《HR+三支柱》新版人力资源管理新趋势章节，并进一步形成《提质增效时代中国企业人力资源管理九大新趋势》完整署名稿件。",
+      "results": "形成某人力资源管理专业书稿新版人力资源管理新趋势章节，并进一步形成《提质增效时代中国企业人力资源管理九大新趋势》完整署名稿件。",
       "metrics": "最终框架为九大趋势；本人在现有论文稿件作者名单中署名。",
       "skills": "人力资源管理研究, 文献检索, 企业案例研究, 趋势分析, 信息归类, 框架搭建, 专业写作, 学术写作, 研究协作",
       "tools": "学术会议资料, 中英文研究文献, 企业公开案例, Word／文档修订",
@@ -3002,11 +3002,11 @@
       "include_in_interview": "1",
       "overview_summary": "针对旧版出版约五年后HR环境发生的新变化，结合学术会议、专题研讨、研究文献和企业实践，参与第十章从零到一重构，协同形成中国企业人力资源管理九大新趋势，并完成部分初稿和多轮修改。",
       "overview_strengths": "前沿研究, 文献与案例检索, 趋势识别, 信息归类, 框架搭建, 专业写作, 多轮修订, 研究协作",
-      "star_situation": "《HR+三支柱》旧版出版约五年后，人工智能、数字化、灵活用工及新生代员工管理等环境变化使原有趋势章节无法完整反映新的HR实践。",
+      "star_situation": "某人力资源管理专业书稿旧版出版约五年后，人工智能、数字化、灵活用工及新生代员工管理等环境变化使原有趋势章节无法完整反映新的HR实践。",
       "star_task": "作为学生研究助理，参与搜集前沿信息、梳理趋势主题，并支持第十章从零到一形成初稿和后续修改。",
       "star_action": "参加学术会议和HR专题研讨，围绕重点主题检索文献与企业案例；从科技、经济、社会文化和政策环境整理信息，判断趋势的长期性，参与相近主题合并、部分初稿撰写及多轮反馈修改。",
       "star_result": "完成新版趋势章节并形成九大趋势署名论文稿件；同时建立了从外部环境、技术与组织变化系统理解HR的研究视角。",
-      "resume_bullets": "参与《HR+三支柱》新版第十章从零到一重构，通过学术会议、专题研讨、文献检索及企业案例研究，协同提炼中国企业人力资源管理九大新趋势，完成部分初稿及多轮修订。\n围绕数智化HR、灵活用工、任务与能力管理及HR职业转型等主题开展资料和案例研究，相关成果进一步形成署名论文稿件。",
+      "resume_bullets": "参与某人力资源管理专业书稿新版第十章从零到一重构，通过学术会议、专题研讨、文献检索及企业案例研究，协同提炼中国企业人力资源管理九大新趋势，完成部分初稿及多轮修订。\n围绕数智化HR、灵活用工、任务与能力管理及HR职业转型等主题开展资料和案例研究，相关成果进一步形成署名论文稿件。",
       "resume_strategy": "第一条适合HR、HR Tech、研究和项目岗位；第二条用于补充研究主题。除非查到正式发表记录，不在简历中写核心期刊发表。",
       "interview_questions": "你在指导教师课题组主要做了什么？\n九大趋势是如何形成的？\n你个人具体负责哪部分？\n哪一项趋势让你印象最深？\n这段研究如何影响你的职业方向？\n如何区分长期趋势和短期热点？",
       "interview_followups": "你具体检索了哪些类型的资料？\n如何判断企业案例能否支持趋势观点？\n哪些段落是你独立写的？\n论文是否最终发表？\n如果重新做，你会如何管理资料和参考文献？",
@@ -3033,7 +3033,7 @@
     },
     {
       "asset_code": "XN-02",
-      "title": "SSC／SDC相关章节深度更新与腾讯实践梳理",
+      "title": "共享服务主题研究与案例梳理",
       "category": "HR三支柱／共享服务研究",
       "role_in_asset": "原有章节评估、内容更新、案例调整与文本修订参与者",
       "participation_level": "在旧版已有内容基础上进行较大幅度修改；不是从零独立撰写完整章节。",
@@ -3086,7 +3086,7 @@
     },
     {
       "asset_code": "XN-03",
-      "title": "《HR+三支柱》新版整体修订与书稿协作",
+      "title": "专业书稿整体修订与研究协作",
       "category": "书稿修订／研究协作",
       "role_in_asset": "前言及基础章节局部修订、反馈修改和编辑沟通支持",
       "participation_level": "参与前言及第一至第三章局部完善，修改幅度低于第十章和SSC／SDC章节",
@@ -3106,7 +3106,7 @@
       "external_permission": "可用于个人作品集展示",
       "include_in_resume": "0",
       "include_in_interview": "1",
-      "overview_summary": "参与《HR+三支柱》新版前言及第一至第三章的局部完善，并根据反馈进行书稿修改、内容核对和出版沟通支持。",
+      "overview_summary": "参与某人力资源管理专业书稿新版前言及第一至第三章的局部完善，并根据反馈进行书稿修改、内容核对和出版沟通支持。",
       "overview_strengths": "长篇书稿协作, 内容核对, 反馈修改, 版本迭代, 编辑沟通",
       "star_situation": "新版书稿涉及多个章节和作者，需要根据反馈统一修订。",
       "star_task": "完成本人负责范围的内容完善、核对和版本修改。",
@@ -3139,7 +3139,7 @@
     },
     {
       "asset_code": "XN-04",
-      "title": "《劳动科学导论》案例搜集与适用性筛选",
+      "title": "跨学科案例搜集与适用性筛选",
       "category": "教材研究／辅助资产",
       "role_in_asset": "案例资料搜集与主题匹配筛选支持",
       "participation_level": "围绕教材研究主题搜集案例并判断适用性",
@@ -3159,7 +3159,7 @@
       "external_permission": "可用于个人作品集展示",
       "include_in_resume": "0",
       "include_in_interview": "0",
-      "overview_summary": "为《劳动科学导论》搜集相关实践案例，并根据案例与研究主题的匹配程度筛选可供课题组参考的内容。",
+      "overview_summary": "为某劳动研究专业书稿搜集相关实践案例，并根据案例与研究主题的匹配程度筛选可供课题组参考的内容。",
       "overview_strengths": "资料检索, 案例筛选, 研究主题理解, 信息相关性判断",
       "star_situation": "",
       "star_task": "",
@@ -3203,7 +3203,7 @@
       "rule_text": "保留真实经历与职业资产；人员身份、内部文件、敏感数据和求职时间表不公开。"
     },
     {
-      "experience_code": "WD",
+      "experience_code": "TECH",
       "rule_type": "公开范围",
       "rule_text": "保留真实经历与职业资产；人员身份、内部文件、敏感数据和求职时间表不公开。"
     },
@@ -3218,7 +3218,7 @@
       "rule_text": "保留真实经历与职业资产；人员身份、内部文件、敏感数据和求职时间表不公开。"
     },
     {
-      "experience_code": "EY",
+      "experience_code": "ACCT",
       "rule_type": "公开范围",
       "rule_text": "保留真实经历与职业资产；人员身份、内部文件、敏感数据和求职时间表不公开。"
     },
@@ -3233,12 +3233,12 @@
       "rule_text": "保留真实经历与职业资产；人员身份、内部文件、敏感数据和求职时间表不公开。"
     },
     {
-      "experience_code": "SOHU",
+      "experience_code": "MEDIA",
       "rule_type": "公开范围",
       "rule_text": "保留真实经历与职业资产；人员身份、内部文件、敏感数据和求职时间表不公开。"
     },
     {
-      "experience_code": "FESCO",
+      "experience_code": "HRS",
       "rule_type": "公开范围",
       "rule_text": "保留真实经历与职业资产；人员身份、内部文件、敏感数据和求职时间表不公开。"
     }

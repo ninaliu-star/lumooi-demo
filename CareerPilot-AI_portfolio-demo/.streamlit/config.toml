@@ -1,0 +1,46 @@
+[theme]
+base = "light"
+baseRadius = "large"
+buttonRadius = "full"
+showWidgetBorder = true
+showSidebarBorder = true
+
+[theme.light]
+primaryColor = "#0B6B4F"
+backgroundColor = "#F7F1E6"
+secondaryBackgroundColor = "#FFFDF8"
+textColor = "#2C2924"
+borderColor = "#D8D1C3"
+greenColor = "#0B6B4F"
+yellowColor = "#D4A64A"
+orangeColor = "#B9783F"
+redColor = "#C96F7D"
+blueColor = "#5C8094"
+
+[theme.light.sidebar]
+primaryColor = "#0B6B4F"
+backgroundColor = "#E7EFE7"
+secondaryBackgroundColor = "#D6E5D7"
+textColor = "#2C2924"
+borderColor = "#C9D7CA"
+
+[theme.dark]
+# Deliberately mirror the light palette. CareerPilot is a light-only product,
+# so selecting dark/auto in Streamlit or the browser must not recolor widgets.
+primaryColor = "#0B6B4F"
+backgroundColor = "#F7F1E6"
+secondaryBackgroundColor = "#FFFDF8"
+textColor = "#2C2924"
+borderColor = "#D8D1C3"
+greenColor = "#0B6B4F"
+yellowColor = "#D4A64A"
+orangeColor = "#B9783F"
+redColor = "#C96F7D"
+blueColor = "#5C8094"
+
+[theme.dark.sidebar]
+primaryColor = "#0B6B4F"
+backgroundColor = "#E7EFE7"
+secondaryBackgroundColor = "#D6E5D7"
+textColor = "#2C2924"
+borderColor = "#C9D7CA"
