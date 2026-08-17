@@ -47,7 +47,7 @@ STATUS_OPTIONS = [
 ]
 
 DEMO_ACCESS_COOKIE = "lumooi_demo_access"
-DEMO_ACCESS_COOKIE_MAX_AGE = 60 * 60 * 24
+PORTFOLIO_AUTH_SESSION_KEY = "portfolio_authenticated"
 
 
 st.set_page_config(
@@ -66,8 +66,8 @@ def _demo_access_token(password):
     ).hexdigest()
 
 
-def _install_demo_access_cookie(token):
-    """Keep access across full-page navigation without exposing the password."""
+def _install_demo_session_cookie(token):
+    """Bridge full-page links without extending login beyond this browser session."""
     token_json = json.dumps(token)
     components.html(
         f"""
@@ -77,7 +77,7 @@ def _install_demo_access_cookie(token):
             try {{ owner = window.parent; }} catch (_) {{ return; }}
             const secure = owner.location.protocol === "https:" ? "; Secure" : "";
             owner.document.cookie = "{DEMO_ACCESS_COOKIE}=" + {token_json}
-                + "; Max-Age={DEMO_ACCESS_COOKIE_MAX_AGE}; Path=/; SameSite=Lax" + secure;
+                + "; Path=/; SameSite=Lax" + secure;
         }})();
         </script>
         """,
@@ -87,7 +87,7 @@ def _install_demo_access_cookie(token):
 
 
 def require_portfolio_password():
-    """Protect the interactive lumooi demo while keeping the product page public."""
+    """Run the password gate once and keep authentication for this session."""
     try:
         configured_password = str(st.secrets.get("PORTFOLIO_PASSWORD", "")).strip()
     except Exception:
@@ -109,9 +109,9 @@ def require_portfolio_password():
         stored_access_token,
         expected_access_token,
     )
-    if st.session_state.get("portfolio_access_granted") or access_is_valid:
-        st.session_state["portfolio_access_granted"] = True
-        _install_demo_access_cookie(expected_access_token)
+    if st.session_state.get(PORTFOLIO_AUTH_SESSION_KEY) or access_is_valid:
+        st.session_state[PORTFOLIO_AUTH_SESSION_KEY] = True
+        _install_demo_session_cookie(expected_access_token)
         return
 
     st.markdown(
@@ -212,15 +212,16 @@ def require_portfolio_password():
         submitted = st.form_submit_button("进入 Demo", type="primary", use_container_width=True)
     if submitted:
         if hmac.compare_digest(entered_password, configured_password):
-            st.session_state["portfolio_access_granted"] = True
+            st.session_state[PORTFOLIO_AUTH_SESSION_KEY] = True
+            _install_demo_session_cookie(expected_access_token)
             st.rerun()
         st.error("密码不正确，请向开发者确认临时密码。")
     st.stop()
 
 
-requested_entry_page = str(st.query_params.get("page", "产品首页"))
-if requested_entry_page != "产品首页":
-    require_portfolio_password()
+# One global gate protects every route. All modules and reruns reuse the same
+# session_state flag instead of implementing page-specific password checks.
+require_portfolio_password()
 
 if "showcase_session_id" not in st.session_state:
     st.session_state["showcase_session_id"] = uuid.uuid4().hex
@@ -5049,7 +5050,7 @@ def render_product_landing():
                 box-shadow: none;
                 filter: blur(20px) saturate(1.12);
                 opacity: .86;
-                animation: cp-silk-sheet-a 30s ease-in-out infinite alternate;
+                animation: cp-silk-sheet-a 18s ease-in-out infinite alternate;
             }
             .cp-fluid::after {
                 background:
@@ -5062,7 +5063,7 @@ def render_product_landing():
                 box-shadow: none;
                 filter: blur(28px);
                 opacity: .70;
-                animation: cp-silk-sheet-b 38s ease-in-out -9s infinite alternate-reverse;
+                animation: cp-silk-sheet-b 24s ease-in-out -6s infinite alternate-reverse;
             }
             .cp-fluid-lobe {
                 min-width: 0 !important;
@@ -5089,7 +5090,7 @@ def render_product_landing():
                 height: 34vw;
                 left: -17%;
                 top: -13%;
-                animation: cp-silk-ribbon-one 32s ease-in-out infinite alternate;
+                animation: cp-silk-ribbon-one 20s ease-in-out infinite alternate;
             }
             .cp-fluid-lobe.two {
                 width: 64vw;
@@ -5097,7 +5098,7 @@ def render_product_landing():
                 right: -18%;
                 top: 13%;
                 opacity: .58;
-                animation: cp-silk-ribbon-two 36s ease-in-out -7s infinite alternate-reverse;
+                animation: cp-silk-ribbon-two 24s ease-in-out -5s infinite alternate-reverse;
             }
             .cp-fluid-lobe.three {
                 width: 69vw;
@@ -5105,7 +5106,7 @@ def render_product_landing():
                 left: 15%;
                 bottom: -16%;
                 opacity: .50;
-                animation: cp-silk-ribbon-three 40s ease-in-out -13s infinite alternate;
+                animation: cp-silk-ribbon-three 28s ease-in-out -9s infinite alternate;
             }
             .cp-fluid-pointer {
                 z-index: 1;
@@ -5358,7 +5359,9 @@ def render_product_landing():
             }
 
             @media (prefers-reduced-motion: reduce) {
-                .cp-fluid, .cp-fluid::before, .cp-fluid::after, .cp-fluid-lobe { animation: none !important; }
+                .cp-fluid::before, .cp-fluid::after, .cp-fluid-lobe {
+                    animation-duration: 60s !important;
+                }
             }
         </style>
         """,
@@ -5508,7 +5511,7 @@ def render_product_landing():
 
                             float fluidField(vec2 p) {
                                 /* speed .2 / scale 1.6 / turbulence 1 / downward flow */
-                                float t = u_time * 0.036;
+                                float t = u_time * 0.085;
                                 p.y -= t;
                                 vec2 warp = vec2(
                                     fbm(p * 0.78 + vec2(2.7, -t * 0.35)),
@@ -5688,7 +5691,8 @@ def render_product_landing():
                 }
 
                 if (ferro) {
-                    ferro.render(owner.performance.now(), currentX, currentY, active);
+                    const motionTime = owner.performance.now() * (reducedMotion ? 0.3 : 1);
+                    ferro.render(motionTime, currentX, currentY, active);
                 }
 
                 frame = owner.requestAnimationFrame(animate);
@@ -5698,13 +5702,13 @@ def render_product_landing():
                 ferro.render(owner.performance.now(), 0, 0, false);
             }
 
-            if (!reducedMotion) {
-                if (!coarsePointer) {
-                    doc.addEventListener("pointermove", onPointerMove, { passive: true });
-                    landing.addEventListener("pointerleave", onPointerLeave, { passive: true });
-                }
-                frame = owner.requestAnimationFrame(animate);
+            if (!coarsePointer && !reducedMotion) {
+                doc.addEventListener("pointermove", onPointerMove, { passive: true });
+                landing.addEventListener("pointerleave", onPointerLeave, { passive: true });
             }
+            // Keep the silk flowing on every device. Reduced-motion users get a
+            // much slower passive animation and no pointer-following movement.
+            frame = owner.requestAnimationFrame(animate);
 
             owner.__lumooiFluidCleanup = () => {
                 owner.cancelAnimationFrame(frame);
