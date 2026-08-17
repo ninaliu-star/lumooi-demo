@@ -213,6 +213,13 @@ def require_portfolio_password():
     if submitted:
         if hmac.compare_digest(entered_password, configured_password):
             st.session_state[PORTFOLIO_AUTH_SESSION_KEY] = True
+            destination = st.query_params.get("page", "工作台")
+            if isinstance(destination, list):
+                destination = destination[0] if destination else "工作台"
+            st.session_state["main_nav"] = destination
+            # Keep Demo routing in session_state so the browser returns to the
+            # public landing page when the root URL is refreshed later.
+            st.query_params.clear()
             _install_demo_session_cookie(expected_access_token)
             st.rerun()
         st.error("密码不正确，请向开发者确认临时密码。")
@@ -227,6 +234,8 @@ if isinstance(requested_entry_page, list):
     requested_entry_page = requested_entry_page[0] if requested_entry_page else "产品首页"
 if requested_entry_page != "产品首页":
     require_portfolio_password()
+    st.session_state["main_nav"] = requested_entry_page
+    st.query_params.clear()
 
 if "showcase_session_id" not in st.session_state:
     st.session_state["showcase_session_id"] = uuid.uuid4().hex
@@ -6365,10 +6374,15 @@ NAV_OPTIONS = [
     "面试准备",
 ]
 
-# 默认进入公开产品首页；工作台和其他功能使用同一套查询参数导航。
-requested_page = st.query_params.get("page", "产品首页")
-if isinstance(requested_page, list):
-    requested_page = requested_page[0] if requested_page else "产品首页"
+# The public root always starts on the landing page. Once authenticated, keep
+# internal navigation in session_state so a browser refresh does not preserve
+# a protected `?page=...` URL.
+if st.session_state.get(PORTFOLIO_AUTH_SESSION_KEY) and "main_nav" in st.session_state:
+    requested_page = st.session_state["main_nav"]
+else:
+    requested_page = st.query_params.get("page", "产品首页")
+    if isinstance(requested_page, list):
+        requested_page = requested_page[0] if requested_page else "产品首页"
 
 if requested_page not in NAV_OPTIONS:
     requested_page = "产品首页"
@@ -6378,7 +6392,7 @@ if st.session_state.get("main_nav") != requested_page:
 
 
 def sync_navigation_query():
-    st.query_params["page"] = st.session_state["main_nav"]
+    """Sidebar navigation is session-local; keep the public root URL clean."""
 
 
 def render_sidebar_kinetic_avatar():
