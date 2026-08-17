@@ -219,9 +219,14 @@ def require_portfolio_password():
     st.stop()
 
 
-# One global gate protects every route. All modules and reruns reuse the same
-# session_state flag instead of implementing page-specific password checks.
-require_portfolio_password()
+# Keep the product landing page public. Entering the interactive Demo from its
+# CTA runs the password gate once; all protected routes then reuse the same
+# session_state authentication flag.
+requested_entry_page = st.query_params.get("page", "产品首页")
+if isinstance(requested_entry_page, list):
+    requested_entry_page = requested_entry_page[0] if requested_entry_page else "产品首页"
+if requested_entry_page != "产品首页":
+    require_portfolio_password()
 
 if "showcase_session_id" not in st.session_state:
     st.session_state["showcase_session_id"] = uuid.uuid4().hex
