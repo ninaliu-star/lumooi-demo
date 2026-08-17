@@ -3,7 +3,6 @@ import zipfile
 from html import escape
 from io import BytesIO
 from pathlib import Path
-from urllib.parse import quote
 from xml.etree import ElementTree
 
 import streamlit as st
@@ -287,6 +286,12 @@ ANSWER_PRINCIPLES = [
 ]
 
 
+def _navigate_to_studio(active, source=""):
+    """Navigate inside Interview Studio without starting a new browser session."""
+    st.session_state["iw_active"] = active
+    st.session_state["iw_requested_source"] = source
+
+
 def _render_flow_nav(active, question_total, story_total):
     steps = [
         ("focus", "01", "jd analysis", "直接读取当前 JD"),
@@ -294,14 +299,18 @@ def _render_flow_nav(active, question_total, story_total):
         ("blueprint", "03", "answer method", f"{story_total} 个真实故事"),
         ("sessions", "04", "practice & review", "导入文稿并复盘"),
     ]
-    items = []
-    for key, number, title, meta in steps:
-        active_class = " active" if key == active else ""
-        items.append(
-            f'<a class="iw-flow-step{active_class}" href="?page=%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87&studio={key}" target="_self">'
-            f'<span>{number}</span><div><b>{title}</b><small>{meta}</small></div></a>'
-        )
-    st.markdown(f'<nav class="iw-flow">{"".join(items)}</nav>', unsafe_allow_html=True)
+    columns = st.columns(4, gap="small")
+    for column, (key, number, title, meta) in zip(columns, steps):
+        with column:
+            with st.container(key=f"iw_flow_{key}"):
+                st.button(
+                    f"{number}　{title}\n\n{meta}",
+                    key=f"iw_flow_button_{key}",
+                    on_click=_navigate_to_studio,
+                    args=(key,),
+                    use_container_width=True,
+                    type="primary" if key == active else "secondary",
+                )
 
 
 def _styles():
@@ -406,6 +415,16 @@ def _styles():
         .iw-flow-step b {{display:block;font-family:'Gaegu','Noto Sans SC',cursive;font-size:1.05rem;line-height:1;text-transform:lowercase}}
         .iw-flow-step small {{display:block;margin-top:5px;color:#8c8884;font-size:8px}}
         .iw-flow-step.active {{border-color:rgba(17,17,17,.18);background:var(--iw-purple);box-shadow:0 10px 24px rgba(30,30,30,.045)}}
+        [class*="st-key-iw_flow_"] [data-testid="stButton"] button {{min-height:66px;padding:11px 13px;border:1px solid var(--iw-line);border-radius:16px;background:#fff;color:#171717;text-align:left;white-space:pre-line;box-shadow:none}}
+        [class*="st-key-iw_flow_"] [data-testid="stButton"] button:hover {{border-color:rgba(17,17,17,.18);color:#171717}}
+        [class*="st-key-iw_flow_"] [data-testid="stButton"] button[kind="primary"] {{border-color:rgba(17,17,17,.18);background:var(--iw-purple);color:#171717;box-shadow:0 10px 24px rgba(30,30,30,.045)}}
+        [class*="st-key-iw_workspace_"] [data-testid="stButton"] button {{min-height:176px;padding:18px;border:1px solid transparent;border-radius:21px;color:#171717;text-align:left;white-space:pre-line;box-shadow:none;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}}
+        [class*="st-key-iw_workspace_"] [data-testid="stButton"] button:hover {{transform:translateY(-4px);border-color:rgba(17,17,17,.18);color:#171717;box-shadow:0 14px 32px rgba(30,30,30,.055)}}
+        .st-key-iw_workspace_focus [data-testid="stButton"] button {{background:var(--iw-blue)}}
+        .st-key-iw_workspace_questions [data-testid="stButton"] button {{background:var(--iw-purple)}}
+        .st-key-iw_workspace_blueprint [data-testid="stButton"] button {{background:var(--iw-orange)}}
+        .st-key-iw_workspace_sessions [data-testid="stButton"] button {{background:var(--iw-green)}}
+        .st-key-iw_back [data-testid="stButton"] button {{border:1px solid var(--iw-line);border-radius:999px;background:#fff;color:#171717;white-space:nowrap}}
         .iw-source {{margin:10px 0 18px;padding:13px 15px;border-radius:14px;background:#fff;border:1px solid var(--iw-line);color:#777;font-size:10px;line-height:1.6}}
         .iw-guidance {{margin:14px 0;padding:18px 20px;border-radius:18px;background:var(--iw-orange);font-size:11px;line-height:1.75}}
         .iw-guidance b {{display:block;margin-bottom:4px;font-family:'Gaegu','Noto Sans SC',cursive;font-size:1.25rem}}
@@ -455,9 +474,13 @@ def _render_role_focus(job, groups):
     )
     if not related:
         st.info("Experience Bank 中暂时没有可用于匹配的面试经历；JD 能力分析仍可正常查看。")
-    st.markdown(
-        '<a class="iw-link" href="?page=%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87&studio=questions" target="_self"><span>下一步：查看高频问题与经历匹配</span><span>→</span></a>',
-        unsafe_allow_html=True,
+    st.button(
+        "下一步：查看高频问题与经历匹配　→",
+        key="iw_focus_next",
+        on_click=_navigate_to_studio,
+        args=("questions",),
+        use_container_width=True,
+        type="primary",
     )
 
 
@@ -496,10 +519,13 @@ def _render_questions(job, questions):
             )
             marker = abs(hash(question.get("question")))
             st.checkbox("这道题已完成经历选择", key=f"iw_prepared_{job['id']}_{marker}")
-            source_param = quote(str(question.get("source") or ""))
-            st.markdown(
-                f'<a class="iw-link" href="?page=%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87&studio=blueprint&source={source_param}" target="_self"><span>用这段经历组织回答</span><span>→</span></a>',
-                unsafe_allow_html=True,
+            st.button(
+                "用这段经历组织回答　→",
+                key=f"iw_question_to_blueprint_{job['id']}_{marker}",
+                on_click=_navigate_to_studio,
+                args=("blueprint", str(question.get("source") or "")),
+                use_container_width=True,
+                type="primary",
             )
 
 
@@ -514,9 +540,11 @@ def _render_blueprints(job, stories):
         unsafe_allow_html=True,
     )
     labels = {f'{story.get("source") or "EXP"}｜{story.get("title") or "未命名故事"}': story for story in stories}
-    requested_source = st.query_params.get("source", "")
-    if isinstance(requested_source, list):
-        requested_source = requested_source[0] if requested_source else ""
+    requested_source = st.session_state.get("iw_requested_source", "")
+    if not requested_source:
+        requested_source = st.query_params.get("source", "")
+        if isinstance(requested_source, list):
+            requested_source = requested_source[0] if requested_source else ""
     label_list = list(labels)
     default_index = next((i for i, label in enumerate(label_list) if label.startswith(f"{requested_source}｜")), 0)
     selected = st.selectbox("选择一个真实故事", label_list, index=default_index, key=f"iw_story_{job['id']}")
@@ -552,9 +580,13 @@ def _render_blueprints(job, stories):
             for index, principle in enumerate(ANSWER_PRINCIPLES, 1)
         )
         st.markdown(f'<div class="iw-principles">{principles}</div>', unsafe_allow_html=True)
-    st.markdown(
-        '<a class="iw-link" href="?page=%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87&studio=sessions" target="_self"><span>下一步：开始练习、录音与复盘</span><span>→</span></a>',
-        unsafe_allow_html=True,
+    st.button(
+        "下一步：开始练习、录音与复盘　→",
+        key="iw_blueprint_next",
+        on_click=_navigate_to_studio,
+        args=("sessions",),
+        use_container_width=True,
+        type="primary",
     )
 
 
@@ -690,9 +722,22 @@ def _render_subpage_header(active, job, question_total, story_total):
         "sessions": ("PRACTICE & REVIEW", "import, reflect, improve", "导入外部转写文稿，完成复盘与下一轮准备。"),
     }
     kicker, title, description = copy[active]
+    heading_column, back_column = st.columns([5, 1.4], vertical_alignment="bottom")
+    with heading_column:
+        st.markdown(
+            f'<div class="iw-subpage-head"><div><span class="iw-kicker">{kicker}</span><h2>{title}</h2><p>{description}</p></div></div>',
+            unsafe_allow_html=True,
+        )
+    with back_column:
+        with st.container(key="iw_back"):
+            st.button(
+                "← 返回 Interview Studio",
+                key="iw_back_button",
+                on_click=_navigate_to_studio,
+                args=("home",),
+                use_container_width=True,
+            )
     st.markdown(
-        f'<div class="iw-subpage-head"><div><span class="iw-kicker">{kicker}</span><h2>{title}</h2><p>{description}</p></div>'
-        '<a class="iw-back" href="?page=%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87" target="_self">← 返回 Interview Studio</a></div>'
         f'<div class="iw-context"><b>{_safe(job.get("company"))}｜{_safe(job.get("position"))}</b>'
         f'<span>{question_total} 个岗位相关问题 · {story_total} 个相关 STAR 故事 · {_safe(job.get("pipeline_stage") or job.get("status") or "准备中")}</span></div>',
         unsafe_allow_html=True,
@@ -723,11 +768,15 @@ def render_interview_workspace(jobs):
     question_width = min(100, max(8, question_total * 7))
     story_width = min(100, max(8, story_total * 10))
 
-    active = st.query_params.get("studio", "home")
-    if isinstance(active, list):
-        active = active[0] if active else "home"
+    if "iw_active" not in st.session_state:
+        requested_studio = st.query_params.get("studio", "home")
+        if isinstance(requested_studio, list):
+            requested_studio = requested_studio[0] if requested_studio else "home"
+        st.session_state["iw_active"] = requested_studio
+    active = st.session_state["iw_active"]
     if active not in {"home", "focus", "questions", "blueprint", "sessions"}:
         active = "home"
+        st.session_state["iw_active"] = active
 
     if active != "home":
         _render_subpage_header(active, job, question_total, story_total)
@@ -761,16 +810,19 @@ def render_interview_workspace(jobs):
         ("blueprint", "03", "answer method", "选择 STAR、PREP 等方法，并遵循 10 条回答原则。", f"{story_total} 个故事", "orange"),
         ("sessions", "04", "practice & review", "导入外部转写文稿，保存复盘和下一轮动作。", "无需录音 API", "green"),
     ]
-    card_html = []
-    for key, number, title, description, meta, tone in cards:
-        card_html.append(
-            f'<a class="iw-workspace-card {tone}" href="?page=%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87&studio={key}" target="_self">'
-            f'<span class="iw-card-number">{number}</span><div class="iw-card-title">{title}</div><p>{description}</p><span class="iw-card-meta">{meta}</span></a>'
-        )
-
     st.markdown(
         '<div class="iw-section-head"><div><p class="iw-kicker">PREPARATION FLOW</p><h2>follow one clear path</h2></div>'
-        '<p>从 01 开始，按顺序完成</p></div>'
-        f'<div class="iw-workspace">{"".join(card_html)}</div>',
+        '<p>从 01 开始，按顺序完成</p></div>',
         unsafe_allow_html=True,
     )
+    columns = st.columns(4, gap="small")
+    for column, (key, number, title, description, meta, _tone) in zip(columns, cards):
+        with column:
+            with st.container(key=f"iw_workspace_{key}"):
+                st.button(
+                    f"{number}　{title}\n\n{description}\n\n{meta}",
+                    key=f"iw_workspace_button_{key}",
+                    on_click=_navigate_to_studio,
+                    args=(key,),
+                    use_container_width=True,
+                )
