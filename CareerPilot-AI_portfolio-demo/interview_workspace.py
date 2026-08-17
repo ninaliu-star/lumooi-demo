@@ -299,6 +299,19 @@ def _render_flow_nav(active, question_total, story_total):
         ("blueprint", "03", "answer method", f"{story_total} 个真实故事"),
         ("sessions", "04", "practice & review", "导入文稿并复盘"),
     ]
+    st.markdown(
+        f"""
+        <style>
+        .st-key-iw_flow_{active} [data-testid="stButton"] button {{
+            border-color: rgba(17,17,17,.18) !important;
+            background: var(--iw-purple) !important;
+            color: #171717 !important;
+            box-shadow: 0 10px 24px rgba(30,30,30,.045) !important;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
     columns = st.columns(4, gap="small")
     for column, (key, number, title, meta) in zip(columns, steps):
         with column:
@@ -309,7 +322,6 @@ def _render_flow_nav(active, question_total, story_total):
                     on_click=_navigate_to_studio,
                     args=(key,),
                     use_container_width=True,
-                    type="primary" if key == active else "secondary",
                 )
 
 
@@ -415,15 +427,14 @@ def _styles():
         .iw-flow-step b {{display:block;font-family:'Gaegu','Noto Sans SC',cursive;font-size:1.05rem;line-height:1;text-transform:lowercase}}
         .iw-flow-step small {{display:block;margin-top:5px;color:#8c8884;font-size:8px}}
         .iw-flow-step.active {{border-color:rgba(17,17,17,.18);background:var(--iw-purple);box-shadow:0 10px 24px rgba(30,30,30,.045)}}
-        [class*="st-key-iw_flow_"] [data-testid="stButton"] button {{min-height:66px;padding:11px 13px;border:1px solid var(--iw-line);border-radius:16px;background:#fff;color:#171717;text-align:left;white-space:pre-line;box-shadow:none}}
-        [class*="st-key-iw_flow_"] [data-testid="stButton"] button:hover {{border-color:rgba(17,17,17,.18);color:#171717}}
-        [class*="st-key-iw_flow_"] [data-testid="stButton"] button[kind="primary"] {{border-color:rgba(17,17,17,.18);background:var(--iw-purple);color:#171717;box-shadow:0 10px 24px rgba(30,30,30,.045)}}
-        [class*="st-key-iw_workspace_"] [data-testid="stButton"] button {{min-height:176px;padding:18px;border:1px solid transparent;border-radius:21px;color:#171717;text-align:left;white-space:pre-line;box-shadow:none;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}}
-        [class*="st-key-iw_workspace_"] [data-testid="stButton"] button:hover {{transform:translateY(-4px);border-color:rgba(17,17,17,.18);color:#171717;box-shadow:0 14px 32px rgba(30,30,30,.055)}}
-        .st-key-iw_workspace_focus [data-testid="stButton"] button {{background:var(--iw-blue)}}
-        .st-key-iw_workspace_questions [data-testid="stButton"] button {{background:var(--iw-purple)}}
-        .st-key-iw_workspace_blueprint [data-testid="stButton"] button {{background:var(--iw-orange)}}
-        .st-key-iw_workspace_sessions [data-testid="stButton"] button {{background:var(--iw-green)}}
+        [class*="st-key-iw_flow_"] [data-testid="stButton"] button {{min-height:66px;padding:11px 13px;border:1px solid var(--iw-line)!important;border-radius:16px;background:#fff!important;color:#171717!important;text-align:left;white-space:pre-line;box-shadow:none!important}}
+        [class*="st-key-iw_flow_"] [data-testid="stButton"] button:hover {{border-color:rgba(17,17,17,.18)!important;color:#171717!important}}
+        [class*="st-key-iw_workspace_"] [data-testid="stButton"] button {{min-height:176px;padding:18px;border:1px solid transparent!important;border-radius:21px;color:#171717!important;text-align:left;white-space:pre-line;box-shadow:none!important;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}}
+        [class*="st-key-iw_workspace_"] [data-testid="stButton"] button:hover {{transform:translateY(-4px);border-color:rgba(17,17,17,.18)!important;color:#171717!important;box-shadow:0 14px 32px rgba(30,30,30,.055)!important}}
+        .st-key-iw_workspace_focus [data-testid="stButton"] button {{background:var(--iw-blue)!important}}
+        .st-key-iw_workspace_questions [data-testid="stButton"] button {{background:var(--iw-purple)!important}}
+        .st-key-iw_workspace_blueprint [data-testid="stButton"] button {{background:var(--iw-orange)!important}}
+        .st-key-iw_workspace_sessions [data-testid="stButton"] button {{background:var(--iw-green)!important}}
         .st-key-iw_back [data-testid="stButton"] button {{border:1px solid var(--iw-line);border-radius:999px;background:#fff;color:#171717;white-space:nowrap}}
         .iw-source {{margin:10px 0 18px;padding:13px 15px;border-radius:14px;background:#fff;border:1px solid var(--iw-line);color:#777;font-size:10px;line-height:1.6}}
         .iw-guidance {{margin:14px 0;padding:18px 20px;border-radius:18px;background:var(--iw-orange);font-size:11px;line-height:1.75}}
